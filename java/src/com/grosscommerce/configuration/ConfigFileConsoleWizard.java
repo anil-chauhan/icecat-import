@@ -8,10 +8,10 @@
  * Copyright 2011 GrossCommerce
  */
 
-package com.grosscommerce.configfile;
+package com.grosscommerce.configuration;
 
 import com.grosscommerce.ICEcat.controller.ImportContext;
-import com.grosscommerce.emission.framework.importer.Token;
+import com.grosscommerce.core.Token;
 import com.grosscommerce.ICEcat.model.Category;
 import com.grosscommerce.ICEcat.model.Language;
 import com.grosscommerce.ICEcat.model.Languages;

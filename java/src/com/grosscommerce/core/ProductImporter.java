@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package com.grosscommerce.emission.framework.importer;
+package com.grosscommerce.core;
 
 import com.emission.framework.product.IProduct;
 import com.emission.framework.product.Product_Service;

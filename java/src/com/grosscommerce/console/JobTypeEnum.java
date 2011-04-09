@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package com.grosscommerce.commandlineparser;
+package com.grosscommerce.console;
 
 /**
  *

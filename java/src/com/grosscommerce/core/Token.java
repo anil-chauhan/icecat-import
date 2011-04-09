@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package com.grosscommerce.emission.framework.importer;
+package com.grosscommerce.core;
 
 import com.grosscommerce.ICEcat.model.XmlObjectBase;
 import com.grosscommerce.ICEcat.model.annotations.ValueTypeEnum;

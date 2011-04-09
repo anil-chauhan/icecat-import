@@ -10,17 +10,17 @@
 
 package com.grosscommerce;
 
-import com.grosscommerce.configfile.ConfigFile;
+import com.grosscommerce.configuration.ConfigFile;
 import com.grosscommerce.ICEcat.controller.ImportContext;
 import com.grosscommerce.ICEcat.controller.ImportController;
-import com.grosscommerce.emission.framework.importer.Token;
-import com.grosscommerce.emission.framework.importer.TokenFilter;
-import com.grosscommerce.emission.framework.importer.Tokens;
+import com.grosscommerce.core.Token;
+import com.grosscommerce.core.TokenFilter;
+import com.grosscommerce.core.Tokens;
 import com.grosscommerce.ICEcat.model.Categories;
 import com.grosscommerce.ICEcat.model.Category;
 import com.grosscommerce.ICEcat.model.Language;
-import com.grosscommerce.commandlineparser.CommandLineParser;
-import com.grosscommerce.configfile.ConfigFileConsoleWizard;
+import com.grosscommerce.console.CommandLineParser;
+import com.grosscommerce.configuration.ConfigFileConsoleWizard;
 import com.grosscommerce.utilities.LogUtility;
 import java.io.IOException;
 import java.util.logging.Level;

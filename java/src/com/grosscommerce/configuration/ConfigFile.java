@@ -7,7 +7,7 @@
  *
  * Copyright 2011 GrossCommerce
  */
-package com.grosscommerce.configfile;
+package com.grosscommerce.configuration;
 
 import com.grosscommerce.ICEcat.common.Constants;
 import com.grosscommerce.ICEcat.model.XmlObjectBase;
