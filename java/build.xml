@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<project name="ICEcatImporter" default="dist" basedir=".">
+<project name="icecat-import" default="dist" basedir=".">
     <property name="builddir" location="classes"/>
     <property name="libdir" location="lib"/>
-    <property name="distdir" location="dist"/>
+    <property name="distdir" location="packages"/>
     <property name="srcdir" location="src"/>
     <property name="main.class" value="com.grosscommerce.Program"/>
     <property name="debuginfo" value="true"/>
+    <property name="version.num" value="0.1.0.0"/>
     <path id="DistCP">
         <fileset dir="${distdir}">
             <include name="*.jar"/>
@@ -73,6 +74,7 @@
             <manifest>
                 <attribute name="Class-Path" value="${GCClassPathProp}"/>
                 <attribute name="Main-Class" value="com.grosscommerce.Program"/>
+                <attribute name="Implementation-Version" value="${version.num}"/>
             </manifest>
         </jar>
     </target>
@@ -125,7 +127,6 @@
         <nbjpdastart addressproperty="jpda.address" name="ICEcatImporterr" transport="dt_socket">
             <classpath refid="DistCP"/>
         </nbjpdastart>
-        <!-- TODO configure the main class for your project here: -->
         <java classname="${main.class}" fork="true" dir="${distdir}">
             <classpath refid="DistCP"/>
             <jvmarg value="-Xdebug"/>

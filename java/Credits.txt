@@ -1,0 +1,6 @@
+Developers & Architecture:
+Anykey Skovorodkin
+Andrew Mikhailov <andrew@vitche.com>
+
+Idea & Marketing:
+Andrew Mikhailov <andrew@vitche.com>
