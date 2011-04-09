@@ -10,12 +10,12 @@
 
 package com.grosscommerce.emission.framework.importer;
 
-import com.grosscommerce.ICEcatAPI.controller.ImportContext;
-import com.grosscommerce.ICEcatAPI.controller.ProductFileRefFilterBase;
-import com.grosscommerce.ICEcatAPI.model.Category;
-import com.grosscommerce.ICEcatAPI.model.ProductFileRef;
-import com.grosscommerce.ICEcatAPI.productimporterbase.ParsedProductInfo;
-import com.grosscommerce.ICEcatAPI.productimporterbase.ProductImporterBase;
+import com.grosscommerce.ICEcat.controller.ImportContext;
+import com.grosscommerce.ICEcat.controller.ProductFileRefFilterBase;
+import com.grosscommerce.ICEcat.model.Category;
+import com.grosscommerce.ICEcat.model.ProductFileRef;
+import com.grosscommerce.ICEcat.productimporterbase.ParsedProductInfo;
+import com.grosscommerce.ICEcat.productimporterbase.ProductImporterBase;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;

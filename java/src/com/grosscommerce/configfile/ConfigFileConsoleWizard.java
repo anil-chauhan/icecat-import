@@ -10,11 +10,11 @@
 
 package com.grosscommerce.configfile;
 
-import com.grosscommerce.ICEcatAPI.controller.ImportContext;
+import com.grosscommerce.ICEcat.controller.ImportContext;
 import com.grosscommerce.emission.framework.importer.Token;
-import com.grosscommerce.ICEcatAPI.model.Category;
-import com.grosscommerce.ICEcatAPI.model.Language;
-import com.grosscommerce.ICEcatAPI.model.Languages;
+import com.grosscommerce.ICEcat.model.Category;
+import com.grosscommerce.ICEcat.model.Language;
+import com.grosscommerce.ICEcat.model.Languages;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;

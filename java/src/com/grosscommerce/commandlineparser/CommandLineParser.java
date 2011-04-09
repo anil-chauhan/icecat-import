@@ -10,8 +10,8 @@
 
 package com.grosscommerce.commandlineparser;
 
-import com.grosscommerce.ICEcatAPI.common.Constants;
-import com.grosscommerce.ICEcatAPI.controller.ImportType;
+import com.grosscommerce.ICEcat.common.Constants;
+import com.grosscommerce.ICEcat.controller.ImportType;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;

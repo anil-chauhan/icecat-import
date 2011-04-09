@@ -10,10 +10,10 @@
 
 package com.grosscommerce.configfile;
 
-import com.grosscommerce.ICEcatAPI.common.Constants;
-import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
-import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
-import com.grosscommerce.ICEcatAPI.model.annotations.XmlNodeType;
+import com.grosscommerce.ICEcat.common.Constants;
+import com.grosscommerce.ICEcat.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcat.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcat.model.annotations.XmlNodeType;
 
 /**
  * ICECat config element.

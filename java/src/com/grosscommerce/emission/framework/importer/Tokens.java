@@ -10,7 +10,7 @@
 
 package com.grosscommerce.emission.framework.importer;
 
-import com.grosscommerce.ICEcatAPI.model.XmlObjectsListBase;
+import com.grosscommerce.ICEcat.model.XmlObjectsListBase;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import org.w3c.dom.Element;

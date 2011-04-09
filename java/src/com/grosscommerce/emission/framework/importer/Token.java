@@ -10,9 +10,9 @@
 
 package com.grosscommerce.emission.framework.importer;
 
-import com.grosscommerce.ICEcatAPI.model.XmlObjectBase;
-import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
-import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcat.model.XmlObjectBase;
+import com.grosscommerce.ICEcat.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcat.model.annotations.XmlFieldAnnotation;
 import org.w3c.dom.Element;
 
 /**

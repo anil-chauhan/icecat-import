@@ -9,12 +9,12 @@
  */
 package com.grosscommerce.configfile;
 
-import com.grosscommerce.ICEcatAPI.common.Constants;
-import com.grosscommerce.ICEcatAPI.model.XmlObjectBase;
-import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
-import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
-import com.grosscommerce.ICEcatAPI.model.annotations.XmlNodeType;
-import com.grosscommerce.ICEcatAPI.utilities.XmlUtil;
+import com.grosscommerce.ICEcat.common.Constants;
+import com.grosscommerce.ICEcat.model.XmlObjectBase;
+import com.grosscommerce.ICEcat.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcat.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcat.model.annotations.XmlNodeType;
+import com.grosscommerce.ICEcat.utilities.XmlUtil;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
