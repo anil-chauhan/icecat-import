@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.configuration;
 
 import com.grosscommerce.ICEcat.model.XmlObjectBase;
@@ -20,57 +19,44 @@ import org.w3c.dom.Element;
  * Base class for settings nodes.
  * @author Anykey Skovorodkin
  */
-public abstract class SettingsBase extends XmlObjectBase
-{
+public abstract class SettingsBase extends XmlObjectBase {
+
     private static final String USER_NAME_PROP = "user_name";
     private static final String PASSWORD_PROP = "password";
-
-    @XmlFieldAnnotation (nodeType = XmlNodeType.XmlNode, propertyName = USER_NAME_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(nodeType = XmlNodeType.XmlNode, propertyName = USER_NAME_PROP, valueType = ValueTypeEnum.String)
     protected String userName = "";
-    @XmlFieldAnnotation (nodeType = XmlNodeType.XmlNode, propertyName = PASSWORD_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(nodeType = XmlNodeType.XmlNode, propertyName = PASSWORD_PROP, valueType = ValueTypeEnum.String)
     protected String password = "";
 
-    public SettingsBase()
-    {
+    public SettingsBase() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    
-    public String getPassword()
-    {
+    public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return this.userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
-    
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
-
+    protected void saveToElementInternal(Element parentElement) {
     }
-    
     // </editor-fold>
 }

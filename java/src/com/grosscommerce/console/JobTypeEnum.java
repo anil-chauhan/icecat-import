@@ -7,34 +7,28 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.console;
 
 /**
  *
  * @author Anykey Skovorodkin
  */
-public enum JobTypeEnum
-{
+public enum JobTypeEnum {
+
     CreateConfig("-createconfig"),
     ImportCatalog("-import"),
     Help("-help");
-
     private String value;
 
-    private JobTypeEnum(String value)
-    {
+    private JobTypeEnum(String value) {
         this.value = value;
     }
 
-    public static JobTypeEnum valueOfIgnoreCase(String strValue) throws IllegalArgumentException
-    {
+    public static JobTypeEnum valueOfIgnoreCase(String strValue) throws IllegalArgumentException {
         JobTypeEnum[] values = JobTypeEnum.values();
 
-        for(JobTypeEnum val : values)
-        {
-            if(val.value.equalsIgnoreCase(strValue))
-            {
+        for (JobTypeEnum val : values) {
+            if (val.value.equalsIgnoreCase(strValue)) {
                 return val;
             }
         }
@@ -43,8 +37,7 @@ public enum JobTypeEnum
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.value;
     }
 }

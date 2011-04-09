@@ -29,18 +29,16 @@ import org.w3c.dom.Element;
  * Base XmlObject. Provides basic functional for parsing any objects from xml.
  * @author Anykey Skovorodkin
  */
-public abstract class XmlObjectBase implements IXmlObject
-{
+public abstract class XmlObjectBase implements IXmlObject {
+
     public abstract String getRootNodeName();
 
     protected abstract boolean parseFromElementInternal(Element thisObjectElement);
 
     protected abstract void saveToElementInternal(Element parentElement);
 
-    private void checkNodeName(Element thisObjectElement) throws IllegalArgumentException
-    {
-        if (!thisObjectElement.getNodeName().equals(this.getRootNodeName()))
-        {
+    private void checkNodeName(Element thisObjectElement) throws IllegalArgumentException {
+        if (!thisObjectElement.getNodeName().equals(this.getRootNodeName())) {
             throw new IllegalArgumentException(
                     "Error! Element name is not valid. Element name: " + thisObjectElement.getNodeName() + " != " + this.getRootNodeName());
         }
@@ -48,39 +46,31 @@ public abstract class XmlObjectBase implements IXmlObject
 
     // <editor-fold defaultstate="collapsed" desc="IXmlObject implementation">
     @Override
-    public boolean parseFromElement(Element thisObjectElement) throws IllegalArgumentException
-    {
+    public boolean parseFromElement(Element thisObjectElement) throws IllegalArgumentException {
         this.checkNodeName(thisObjectElement);
 
         List<Field> fields = this.getAllFields();
 
-        for (Field field : fields)
-        {
-            if (Modifier.isStatic(field.getModifiers()))
-            {
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers())) {
                 continue;
             }
 
             boolean restoreAccessible = false;
-            if (!field.isAccessible())
-            {
+            if (!field.isAccessible()) {
                 field.setAccessible(true);
                 restoreAccessible = true;
             }
 
-            if (!this.parseField(field, thisObjectElement))
-            {
-                if (!this.parseLocalizedField(field, thisObjectElement))
-                {
-                    if (!this.parseXmlObject(field, thisObjectElement))
-                    {
+            if (!this.parseField(field, thisObjectElement)) {
+                if (!this.parseLocalizedField(field, thisObjectElement)) {
+                    if (!this.parseXmlObject(field, thisObjectElement)) {
                         // TODO: add other types here
                     }
                 }
             }
 
-            if (restoreAccessible)
-            {
+            if (restoreAccessible) {
                 field.setAccessible(false);
             }
         }
@@ -88,16 +78,14 @@ public abstract class XmlObjectBase implements IXmlObject
         return this.parseFromElementInternal(thisObjectElement);
     }
 
-    protected List<Field> getAllFields() throws SecurityException
-    {
+    protected List<Field> getAllFields() throws SecurityException {
         List<Field> fields = new ArrayList<Field>();
 
         fields.addAll(Arrays.asList(this.getClass().getDeclaredFields()));
 
         Class supertype = this.getClass().getSuperclass();
 
-        while (supertype != null && supertype != XmlObjectBase.class)
-        {
+        while (supertype != null && supertype != XmlObjectBase.class) {
             Field[] inheritedFields = supertype.getDeclaredFields();
 
             fields.addAll(Arrays.asList(inheritedFields));
@@ -109,74 +97,56 @@ public abstract class XmlObjectBase implements IXmlObject
     }
 
     // </editor-fold>
-    private boolean parseField(Field field, Element thisObjectElement) throws SecurityException, IllegalArgumentException
-    {
+    private boolean parseField(Field field, Element thisObjectElement) throws SecurityException, IllegalArgumentException {
         XmlFieldAnnotation xmlProp =
-                           field.getAnnotation(XmlFieldAnnotation.class);
+                field.getAnnotation(XmlFieldAnnotation.class);
         Object value = null;
-        if (xmlProp == null)
-        {
+        if (xmlProp == null) {
             return false;
         }
 
-        switch (xmlProp.valueType())
-        {
+        switch (xmlProp.valueType()) {
             case Boolean:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     value = XmlUtil.selectBooleanAttribute(thisObjectElement,
-                                                           xmlProp.propertyName());
-                }
-                else
-                {
+                            xmlProp.propertyName());
+                } else {
                     value = XmlUtil.selectBooleanElement(thisObjectElement,
-                                                         xmlProp.propertyName());
+                            xmlProp.propertyName());
                 }
                 break;
             case DateTime:
-                try
-                {
-                    if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                    {
+                try {
+                    if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                         value = XmlUtil.selectDateAttribute(thisObjectElement,
-                                                            xmlProp.propertyName());
-                    }
-                    else
-                    {
+                                xmlProp.propertyName());
+                    } else {
                         value = XmlUtil.selectDateElement(thisObjectElement,
-                                                          xmlProp.propertyName());
+                                xmlProp.propertyName());
                     }
-                }
-                catch (ParseException ex)
-                {
+                } catch (ParseException ex) {
                     Logger.getLogger(XmlObjectBase.class.getName()).log(
                             Level.SEVERE, null, ex);
                 }
                 break;
             case Int:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     value = XmlUtil.selectIntAttribute(thisObjectElement,
-                                                       xmlProp.propertyName());
-                }
-                else
-                {
+                            xmlProp.propertyName());
+                } else {
                     value = XmlUtil.selectIntElement(thisObjectElement,
-                                                     xmlProp.propertyName());
+                            xmlProp.propertyName());
                 }
                 break;
             case String:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     value = XmlUtil.selectStringAttribute(thisObjectElement,
-                                                          xmlProp.propertyName(),
-                                                          "");
-                }
-                else
-                {
+                            xmlProp.propertyName(),
+                            "");
+                } else {
                     value = XmlUtil.selectStringElement(thisObjectElement,
-                                                        xmlProp.propertyName(),
-                                                        "");
+                            xmlProp.propertyName(),
+                            "");
                 }
                 break;
             default:
@@ -184,15 +154,11 @@ public abstract class XmlObjectBase implements IXmlObject
                         "Unknown value type: " + xmlProp.valueType());
         }
 
-        if (value != null)
-        {
-            try
-            {
+        if (value != null) {
+            try {
                 field.set(this, value);
                 return true;
-            }
-            catch (IllegalAccessException ex)
-            {
+            } catch (IllegalAccessException ex) {
                 Logger.getLogger(XmlObjectBase.class.getName()).log(
                         Level.SEVERE, null, ex);
             }
@@ -201,20 +167,16 @@ public abstract class XmlObjectBase implements IXmlObject
         return false;
     }
 
-    private boolean parseLocalizedField(Field field, Element thisObjectElement)
-    {
+    private boolean parseLocalizedField(Field field, Element thisObjectElement) {
         XmlLocalizedFieldAnnotation localizedField = field.getAnnotation(
                 XmlLocalizedFieldAnnotation.class);
 
-        if (localizedField == null)
-        {
+        if (localizedField == null) {
             return false;
         }
 
-        try
-        {
-            if (field.getType() != LocalizedValue.class)
-            {
+        try {
+            if (field.getType() != LocalizedValue.class) {
                 throw new IllegalStateException(
                         "XmlLocalizedFieldAnnotation will be used only for LocalizedValue fields");
             }
@@ -224,56 +186,43 @@ public abstract class XmlObjectBase implements IXmlObject
             List<Element> xmlElems = XmlUtil.selectElementsByName(
                     thisObjectElement, localizedField.nodeName());
 
-            for (Element elem : xmlElems)
-            {
+            for (Element elem : xmlElems) {
                 int langId = XmlUtil.selectIntAttribute(elem,
-                                                        localizedField.langIdAttrName());
+                        localizedField.langIdAttrName());
                 String strValue = XmlUtil.selectStringAttribute(elem,
-                                                                localizedField.valueAttrName(),
-                                                                "");
+                        localizedField.valueAttrName(),
+                        "");
                 fieldValue.putValue(langId, strValue);
             }
-        }
-        catch (IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
+                    null, ex);
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+                    null, ex);
         }
 
         return true;
     }
 
-    private boolean parseXmlObject(Field field, Element thisObjectElement)
-    {
-        if (!this.isSuperclass(field.getType(), XmlObjectBase.class))
-        {
+    private boolean parseXmlObject(Field field, Element thisObjectElement) {
+        if (!this.isSuperclass(field.getType(), XmlObjectBase.class)) {
             return false;
         }
 
         XmlObjectBase xmlObjectBase = null;
 
-        try
-        {
+        try {
             xmlObjectBase = (XmlObjectBase) field.get(this);
-        }
-        catch (IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
+                    null, ex);
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+                    null, ex);
         }
 
-        if (xmlObjectBase == null)
-        {
+        if (xmlObjectBase == null) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(
                     Level.INFO,
                     "XmlObjectBase field is not initialized, name: {0}",
@@ -282,15 +231,13 @@ public abstract class XmlObjectBase implements IXmlObject
         }
 
         Element objectElement = XmlUtil.selectSingleElement(thisObjectElement,
-                                                            xmlObjectBase.getRootNodeName());
+                xmlObjectBase.getRootNodeName());
 
-        if (objectElement == null)
-        {
+        if (objectElement == null) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(
                     Level.INFO,
                     "Elements is not found, field name: {0}, element name: {1}",
-                    new Object[]
-                    {
+                    new Object[]{
                         field.getName(),
                         xmlObjectBase.getRootNodeName()
                     });
@@ -307,42 +254,31 @@ public abstract class XmlObjectBase implements IXmlObject
      * Used for serializing this object into thisObjectElement.
      * @param thisObjectElement
      */
-    public void saveToThisElement(Element thisObjectElement)
-    {
+    public void saveToThisElement(Element thisObjectElement) {
         List<Field> fields = this.getAllFields();
 
-        for (Field field : fields)
-        {
-            try
-            {
-                if (Modifier.isStatic(field.getModifiers()))
-                {
+        for (Field field : fields) {
+            try {
+                if (Modifier.isStatic(field.getModifiers())) {
                     continue;
                 }
 
                 boolean restoreAccessible = false;
 
-                if (!field.isAccessible())
-                {
+                if (!field.isAccessible()) {
                     field.setAccessible(true);
                     restoreAccessible = true;
                 }
 
-                try
-                {
-                    if (!this.saveField(field, thisObjectElement))
-                    {
-                        if (!this.saveLocalizedField(field, thisObjectElement))
-                        {
-                            if (!this.saveXmlObject(field, thisObjectElement))
-                            {
+                try {
+                    if (!this.saveField(field, thisObjectElement)) {
+                        if (!this.saveLocalizedField(field, thisObjectElement)) {
+                            if (!this.saveXmlObject(field, thisObjectElement)) {
                                 // TODO: add other filter
                             }
                         }
                     }
-                }
-                catch (Throwable ex)
-                {
+                } catch (Throwable ex) {
                     Logger.getLogger(XmlObjectBase.class.getName()).log(
                             Level.SEVERE,
                             "Field name: " + field.getName(),
@@ -350,15 +286,12 @@ public abstract class XmlObjectBase implements IXmlObject
                     throw ex;
                 }
 
-                if (restoreAccessible)
-                {
+                if (restoreAccessible) {
                     field.setAccessible(false);
                 }
-            }
-            catch (Throwable ex)
-            {
+            } catch (Throwable ex) {
                 Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                    null, ex);
+                        null, ex);
             }
         }
 
@@ -370,8 +303,7 @@ public abstract class XmlObjectBase implements IXmlObject
      * @param parentElement
      */
     @Override
-    public void saveToElement(Element parentElement)
-    {
+    public void saveToElement(Element parentElement) {
         Element thisObjectElement = parentElement.getOwnerDocument().createElement(
                 this.getRootNodeName());
 
@@ -380,77 +312,62 @@ public abstract class XmlObjectBase implements IXmlObject
         this.saveToThisElement(thisObjectElement);
     }
 
-    private boolean saveField(Field field, Element parentElement) throws IllegalArgumentException, IllegalAccessException
-    {
+    private boolean saveField(Field field, Element parentElement) throws IllegalArgumentException, IllegalAccessException {
         XmlFieldAnnotation xmlProp =
-                           field.getAnnotation(XmlFieldAnnotation.class);
+                field.getAnnotation(XmlFieldAnnotation.class);
 
-        if (xmlProp == null)
-        {
+        if (xmlProp == null) {
             return false;
         }
 
         Object value = field.get(this);
 
-        switch (xmlProp.valueType())
-        {
+        switch (xmlProp.valueType()) {
             case Boolean:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     XmlUtil.appendBooleanAttribute(parentElement,
-                                                   xmlProp.propertyName(),
-                                                   (Boolean) (value));
-                }
-                else
-                {
+                            xmlProp.propertyName(),
+                            (Boolean) (value));
+                } else {
                     XmlUtil.appendBooleanElement(parentElement,
-                                                 xmlProp.propertyName(),
-                                                 (Boolean) value);
+                            xmlProp.propertyName(),
+                            (Boolean) value);
                 }
                 break;
             case DateTime:
 
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     XmlUtil.appendDateAttribute(parentElement,
-                                                xmlProp.propertyName(),
-                                                (Date) value);
-                }
-                else
-                {
+                            xmlProp.propertyName(),
+                            (Date) value);
+                } else {
                     XmlUtil.appendDateElement(parentElement,
-                                              xmlProp.propertyName(),
-                                              (Date) value);
+                            xmlProp.propertyName(),
+                            (Date) value);
                 }
 
                 break;
             case Int:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     XmlUtil.appendIntAttribute(parentElement,
-                                               xmlProp.propertyName(),
-                                               (Integer) value);
-                }
-                else
-                {
+                            xmlProp.propertyName(),
+                            (Integer) value);
+                } else {
                     XmlUtil.appendIntElement(parentElement,
-                                             xmlProp.propertyName(),
-                                             (Integer) value);
+                            xmlProp.propertyName(),
+                            (Integer) value);
                 }
                 break;
             case String:
-                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (xmlProp.nodeType() == XmlNodeType.XmlAttribute) {
                     XmlUtil.appendStringAttribute(parentElement,
-                                                  xmlProp.propertyName(),
-                                                  String.valueOf(
+                            xmlProp.propertyName(),
+                            String.valueOf(
                             value.toString()));
-                }
-                else
-                {
+                } else {
                     XmlUtil.appendStringElement(parentElement,
-                                                xmlProp.propertyName(),
-                                                String.valueOf(value.toString()));
+                            xmlProp.propertyName(),
+                            String.valueOf(value.toString()));
                 }
                 break;
             default:
@@ -461,14 +378,12 @@ public abstract class XmlObjectBase implements IXmlObject
         return true;
     }
 
-    public boolean saveLocalizedField(Field field, Element parentElement) throws IllegalArgumentException, IllegalAccessException
-    {
+    public boolean saveLocalizedField(Field field, Element parentElement) throws IllegalArgumentException, IllegalAccessException {
         XmlLocalizedFieldAnnotation xmlProp =
-                                    field.getAnnotation(
+                field.getAnnotation(
                 XmlLocalizedFieldAnnotation.class);
 
-        if (xmlProp == null)
-        {
+        if (xmlProp == null) {
             return false;
         }
 
@@ -476,8 +391,7 @@ public abstract class XmlObjectBase implements IXmlObject
 
         HashMap<Integer, String> values = value.getValuesMap();
 
-        for (Integer key : values.keySet())
-        {
+        for (Integer key : values.keySet()) {
             Element elem = parentElement.getOwnerDocument().createElement(
                     xmlProp.nodeName());
 
@@ -490,18 +404,14 @@ public abstract class XmlObjectBase implements IXmlObject
         return true;
     }
 
-    private boolean isSuperclass(Class class1, Class class2)
-    {
-        if (class1 == class2)
-        {
+    private boolean isSuperclass(Class class1, Class class2) {
+        if (class1 == class2) {
             return true;
         }
 
         Class supperClass = class1;
-        while ((supperClass = supperClass.getSuperclass()) != null)
-        {
-            if (supperClass == class2)
-            {
+        while ((supperClass = supperClass.getSuperclass()) != null) {
+            if (supperClass == class2) {
                 return true;
             }
         }
@@ -509,32 +419,24 @@ public abstract class XmlObjectBase implements IXmlObject
         return false;
     }
 
-    private boolean saveXmlObject(Field field, Element thisObjectElement)
-    {
-        if (!this.isSuperclass(field.getType(), XmlObjectBase.class))
-        {
+    private boolean saveXmlObject(Field field, Element thisObjectElement) {
+        if (!this.isSuperclass(field.getType(), XmlObjectBase.class)) {
             return false;
         }
 
         XmlObjectBase xmlObjectBase = null;
 
-        try
-        {
+        try {
             xmlObjectBase = (XmlObjectBase) field.get(this);
-        }
-        catch (IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
+                    null, ex);
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+                    null, ex);
         }
 
-        if (xmlObjectBase == null)
-        {
+        if (xmlObjectBase == null) {
             Logger.getLogger(XmlObjectBase.class.getName()).log(
                     Level.INFO,
                     "XmlObjectBase field is not initialized, name: {0}",

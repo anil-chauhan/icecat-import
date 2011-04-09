@@ -7,27 +7,23 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.common;
 
 /**
  *
  * @author Anykey Skovorodkin
  */
-public interface Constants
-{
-    public static final String ICEGAT_DATA_URL           = "http://data.icecat.biz/";
-    public static final String CATEGORIES_LIST_FILE_NAME = "http://data.icecat.biz/export/freexml/refs/CategoriesList.xml.gz";
-    public static final String LANGUAGE_LIST_FILE_NAME   = "http://data.icecat.biz/export/freexml/refs/LanguageList.xml.gz";
-    public static final String FREE_XML_BASE_URL         = "http://data.icecat.biz/export/freexml.int/";
+public interface Constants {
 
+    public static final String ICEGAT_DATA_URL = "http://data.icecat.biz/";
+    public static final String CATEGORIES_LIST_FILE_NAME = "http://data.icecat.biz/export/freexml/refs/CategoriesList.xml.gz";
+    public static final String LANGUAGE_LIST_FILE_NAME = "http://data.icecat.biz/export/freexml/refs/LanguageList.xml.gz";
+    public static final String FREE_XML_BASE_URL = "http://data.icecat.biz/export/freexml.int/";
     public static final String DEFAULT_CONFIG_FILE_NAME = "config.xml";
     public static final String DEFAULT_LANGUAGE_SHORT_CODE = "EN";
-
     /**
      * Default parsing threads count.
      */
     public static final int THREADS_COUNT = 4;
-
     public static final int BLOCKING_QUEUE_CAPACITY = 100;
 }

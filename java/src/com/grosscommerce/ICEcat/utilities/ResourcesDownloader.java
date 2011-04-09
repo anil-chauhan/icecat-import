@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.utilities;
 
 import com.grosscommerce.ICEcat.common.Constants;
@@ -25,20 +24,17 @@ import org.w3c.dom.Element;
  * Used for downloading resources from icecat.
  * @author Anykey Skovorodkin
  */
-public class ResourcesDownloader
-{
-    public static Categories downloadCategories(String username, String password) throws Throwable
-    {
+public class ResourcesDownloader {
+
+    public static Categories downloadCategories(String username, String password) throws Throwable {
         return downloadObject(new Categories(), Constants.CATEGORIES_LIST_FILE_NAME, username, password);
     }
 
-    public static Languages downloadLanguares(String username, String password) throws Throwable
-    {
+    public static Languages downloadLanguares(String username, String password) throws Throwable {
         return downloadObject(new Languages(), Constants.LANGUAGE_LIST_FILE_NAME, username, password);
     }
 
-    public static Product downloadProduct(String relativeUrl, String username, String password) throws Throwable
-    {
+    public static Product downloadProduct(String relativeUrl, String username, String password) throws Throwable {
         return downloadObject(new Product(), Constants.ICEGAT_DATA_URL + relativeUrl, username, password);
     }
 
@@ -46,13 +42,11 @@ public class ResourcesDownloader
             T objectInstance,
             String url,
             String username,
-            String password) throws Throwable
-    {
+            String password) throws Throwable {
         byte[] data = Downloader.download(url,
-                                          username, password);
+                username, password);
 
-        if(data == null)
-        {
+        if (data == null) {
             return null;
         }
 
@@ -63,17 +57,15 @@ public class ResourcesDownloader
         Element rootElem = doc.getDocumentElement();
 
         Element objectElem = XmlUtil.selectSingleElement(rootElem,
-                                                         objectInstance.getRootNodeName());
+                objectInstance.getRootNodeName());
 
-        if (objectElem == null)
-        {
+        if (objectElem == null) {
             throw new IllegalStateException(
-                    "Element with name: " + objectInstance.getRootNodeName() + 
-                    " is not found!");
+                    "Element with name: " + objectInstance.getRootNodeName()
+                    + " is not found!");
         }
 
-        if (objectInstance.parseFromElement(objectElem))
-        {
+        if (objectInstance.parseFromElement(objectElem)) {
             return objectInstance;
         }
 

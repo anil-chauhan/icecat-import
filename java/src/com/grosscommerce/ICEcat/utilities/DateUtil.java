@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.utilities;
 
 import java.text.ParseException;
@@ -18,8 +17,8 @@ import java.util.Date;
  * Used for working with ICEcat's date.
  * @author Anykey Skovorodkin
  */
-public abstract class DateUtil
-{
+public abstract class DateUtil {
+
     /**
      * Used for parsing ICEcat date time.
      */
@@ -31,8 +30,7 @@ public abstract class DateUtil
      * @return
      * @throws ParseException
      */
-    public static Date stringToDate(String strDate) throws ParseException
-    {
+    public static Date stringToDate(String strDate) throws ParseException {
         return format.parse(strDate);
     }
 
@@ -41,8 +39,7 @@ public abstract class DateUtil
      * @param date
      * @return
      */
-    public static String dateToString(Date date)
-    {
+    public static String dateToString(Date date) {
         return format.format(date);
     }
 }

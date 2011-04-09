@@ -19,67 +19,56 @@ import org.w3c.dom.Element;
  * Used for parsing index files.
  * @author Anykey Skovorodkin
  */
-public class IndexFileParser extends XmlObjectsListBase<ProductFileRef>
-{
+public class IndexFileParser extends XmlObjectsListBase<ProductFileRef> {
+
     public static final String ROOT_NODE_NAME = "files.index";
-    
-    public IndexFileParser()
-    {
+
+    public IndexFileParser() {
     }
 
-    public void parse(InputStream is) throws Throwable
-    {
+    public void parse(InputStream is) throws Throwable {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         Document doc = dbf.newDocumentBuilder().parse(is);
 
         Element rootElem = doc.getDocumentElement();
 
         Element objectElem = XmlUtil.selectSingleElement(rootElem,
-                                                         this.getRootNodeName());
+                this.getRootNodeName());
 
-        if (objectElem == null)
-        {
+        if (objectElem == null) {
             throw new IllegalStateException(
-                    "Element with name: " + this.getRootNodeName() +
-                    " is not found!");
-        }
-        else
-        {
+                    "Element with name: " + this.getRootNodeName()
+                    + " is not found!");
+        } else {
             this.parseFromElement(objectElem);
         }
     }
 
     @Override
-    protected ProductFileRef loadFromElement(Element objElement) throws Throwable
-    {
+    protected ProductFileRef loadFromElement(Element objElement) throws Throwable {
         ProductFileRef ref = new ProductFileRef();
         ref.parseFromElement(objElement);
         return ref;
     }
 
     @Override
-    protected void saveObject(ProductFileRef object)
-    {
+    protected void saveObject(ProductFileRef object) {
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected String getChildNodesName()
-    {
+    protected String getChildNodesName() {
         return ProductFileRef.ROOT_NODE_NAME;
     }
 
     @Override
-    public ProductFileRef[] getAll()
-    {
+    public ProductFileRef[] getAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
     // </editor-fold>
 }

@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.core;
 
 import com.grosscommerce.ICEcat.controller.ImportContext;
@@ -25,17 +24,16 @@ import java.util.logging.Logger;
  *
  * @author Anykey Skovorodkin
  */
-public class TokenFilter extends ProductFileRefFilterBase
-{
+public class TokenFilter extends ProductFileRefFilterBase {
+
     private Token token;
     private String userName;
     private String password;
-    
-    public TokenFilter(ImportContext importContext,Token token,
+
+    public TokenFilter(ImportContext importContext, Token token,
             String userName,
             String password,
-            int parsingThreadsCount)
-    {
+            int parsingThreadsCount) {
         super(importContext, parsingThreadsCount);
         this.token = token;
         this.userName = userName;
@@ -43,16 +41,14 @@ public class TokenFilter extends ProductFileRefFilterBase
     }
 
     @Override
-    protected boolean acceptInternal(ProductFileRef productFileRef)
-    {
+    protected boolean acceptInternal(ProductFileRef productFileRef) {
         Category category = this.importContext.getCategories().getById(
                 productFileRef.getCatId());
 
-        if (category == null)
-        {
+        if (category == null) {
             Logger.getLogger(TokenFilter.class.getName()).log(
                     Level.SEVERE, "Unknown category id: {0}",
-                                   productFileRef.getCatId());
+                    productFileRef.getCatId());
             return false;
         }
 
@@ -63,10 +59,9 @@ public class TokenFilter extends ProductFileRefFilterBase
     }
 
     @Override
-    protected ProductImporterBase getProductImporter(CountDownLatch taskMonitor, 
+    protected ProductImporterBase getProductImporter(CountDownLatch taskMonitor,
             ArrayBlockingQueue<ParsedProductInfo> resultQueue,
-            ImportContext importContext)
-    {
+            ImportContext importContext) {
         return new ProductImporter(taskMonitor, resultQueue, this.token,
                 this.userName, this.password, importContext);
     }

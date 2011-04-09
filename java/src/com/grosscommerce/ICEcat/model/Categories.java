@@ -18,26 +18,22 @@ import org.w3c.dom.Element;
  * Used for storing all categories.
  * @author Anykey Skovorodkin
  */
-public class Categories extends XmlObjectsListBase<Category>
-{
+public class Categories extends XmlObjectsListBase<Category> {
 
     public static final String ROOT_NODE_NAME = "CategoriesList";
     private HashMap<Integer, Category> categories = new HashMap<Integer, Category>();
     private int minLevel = Integer.MAX_VALUE;
     private int maxLevel = Integer.MIN_VALUE;
 
-    public Categories()
-    {
+    public Categories() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getMaxLevel()
-    {
+    public int getMaxLevel() {
         return maxLevel;
     }
 
-    public int getMinLevel()
-    {
+    public int getMinLevel() {
         return minLevel;
     }
     // </editor-fold>
@@ -48,32 +44,26 @@ public class Categories extends XmlObjectsListBase<Category>
      * @param visible
      * @return
      */
-    public Category getById(int id, boolean visible)
-    {
+    public Category getById(int id, boolean visible) {
         Category cat = this.categories.get(id);
 
-        if (visible && cat != null && !cat.isVisible())
-        {
+        if (visible && cat != null && !cat.isVisible()) {
             return this.getById(cat.getParentCategoryId(), visible);
         }
 
         return cat;
     }
 
-    public Category getById(int id)
-    {
+    public Category getById(int id) {
         return this.getById(id, false);
     }
 
-    public void checkLevels()
-    {
+    public void checkLevels() {
         Category[] allCategories = this.categories.values().toArray(
                 new Category[0]);
 
-        for (Category c : allCategories)
-        {
-            if (c.getLevel() < 0)
-            {
+        for (Category c : allCategories) {
+            if (c.getLevel() < 0) {
                 c.setLevel(this.obtainCategoryLevel(c));
             }
 
@@ -82,17 +72,14 @@ public class Categories extends XmlObjectsListBase<Category>
         }
     }
 
-    public List<Category> getCategories(int level)
-    {
+    public List<Category> getCategories(int level) {
         ArrayList<Category> result = new ArrayList<Category>();
 
         Category[] allCategories = this.categories.values().toArray(
                 new Category[0]);
 
-        for (Category c : allCategories)
-        {
-            if (c.getLevel() == level)
-            {
+        for (Category c : allCategories) {
+            if (c.getLevel() == level) {
                 result.add(c);
             }
         }
@@ -100,19 +87,14 @@ public class Categories extends XmlObjectsListBase<Category>
         return result;
     }
 
-    private int obtainCategoryLevel(Category cat)
-    {
+    private int obtainCategoryLevel(Category cat) {
         int level = 0;
 
         Category parent = cat;
-        while ((parent = this.getById(parent.getParentCategoryId(), false)) != null && parent.getId() != parent.getParentCategoryId())
-        {
-            if (parent.getLevel() >= 0)
-            {
+        while ((parent = this.getById(parent.getParentCategoryId(), false)) != null && parent.getId() != parent.getParentCategoryId()) {
+            if (parent.getLevel() >= 0) {
                 return parent.getLevel() + level + 1;
-            }
-            else
-            {
+            } else {
                 level++;
             }
         }
@@ -122,17 +104,14 @@ public class Categories extends XmlObjectsListBase<Category>
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectsListBase">
     @Override
-    protected String getChildNodesName()
-    {
+    protected String getChildNodesName() {
         return Category.ROOT_NODE_NAME;
     }
 
     @Override
-    protected Category loadFromElement(Element objElement) throws Throwable
-    {
+    protected Category loadFromElement(Element objElement) throws Throwable {
         Category category = new Category();
-        if (category.parseFromElement(objElement))
-        {
+        if (category.parseFromElement(objElement)) {
             return category;
         }
 
@@ -140,56 +119,45 @@ public class Categories extends XmlObjectsListBase<Category>
     }
 
     @Override
-    public Category[] getAll()
-    {
+    public Category[] getAll() {
         return this.categories.values().toArray(new Category[0]);
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="overrides">
     @Override
-    public void saveObject(Category object)
-    {
+    public void saveObject(Category object) {
         this.categories.put(object.getId(), object);
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
-        if (super.parseFromElementInternal(thisObjectElement))
-        {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
+        if (super.parseFromElementInternal(thisObjectElement)) {
             this.checkLevels();
             return true;
-        }
-        else
-        {
+        } else {
             this.categories.clear();
             return false;
         }
     }
 
     // </editor-fold>
-    public Category getParentCategory(Category category, int level)
-    {
-        if (category.getLevel() == level)
-        {
+    public Category getParentCategory(Category category, int level) {
+        if (category.getLevel() == level) {
             return category;
         }
 
         Category parentCategory = this.getById(category.getParentCategoryId());
 
-        while (parentCategory != null)
-        {
-            if (parentCategory.getLevel() == level)
-            {
+        while (parentCategory != null) {
+            if (parentCategory.getLevel() == level) {
                 return parentCategory;
             }
 

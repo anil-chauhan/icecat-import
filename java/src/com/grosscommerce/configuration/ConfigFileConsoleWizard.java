@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.configuration;
 
 import com.grosscommerce.ICEcat.controller.ImportContext;
@@ -24,15 +23,12 @@ import java.util.logging.Logger;
  *
  * @author Anykey Skovorodkin
  */
-public class ConfigFileConsoleWizard
-{
-    public ConfigFileConsoleWizard()
-    {
+public class ConfigFileConsoleWizard {
 
+    public ConfigFileConsoleWizard() {
     }
 
-    public ConfigFile buildConfigFile() throws Throwable
-    {
+    public ConfigFile buildConfigFile() throws Throwable {
         System.out.println("******************* Config File Wizard ****************");
 
         ConfigFile configFile = new ConfigFile();
@@ -54,73 +50,60 @@ public class ConfigFileConsoleWizard
         this.specifyTokens(configFile, importContext);
 
         System.out.println("Building config file...");
-        
+
         return configFile;
     }
 
-    private void fillAuthParams(SettingsBase settingsBase)
-    {
+    private void fillAuthParams(SettingsBase settingsBase) {
         System.out.print("User name: ");
         settingsBase.setUserName(this.readNotEmptyConsoleValue());
         System.out.print("Pasword: ");
         settingsBase.setPassword(this.readNotEmptyConsoleValue());
     }
 
-    private String readConsoleValue()
-    {
+    private String readConsoleValue() {
         Scanner scanner = new Scanner(System.in);
         String value = scanner.nextLine();
         return value;
     }
 
-    private String readNotEmptyConsoleValue()
-    {
+    private String readNotEmptyConsoleValue() {
         Scanner scanner = new Scanner(System.in);
         String value = null;
         int effortCount = 0;
-        while(true)
-        {
+        while (true) {
             value = scanner.nextLine();
 
-            if(!value.isEmpty())
-            {
+            if (!value.isEmpty()) {
                 return value;
-            }
-            else if(effortCount < 3)
-            {
+            } else if (effortCount < 3) {
                 System.out.println("Value can't be empty!");
                 System.out.print("Try again: ");
                 effortCount++;
-            }
-            else
-            {
+            } else {
                 throw new IllegalArgumentException("This is not a toy... ass...");
             }
         }
     }
 
-    private void specifyLanguages(ConfigFile configFile, ImportContext importContext)
-    {
+    private void specifyLanguages(ConfigFile configFile, ImportContext importContext) {
         Languages languageList = importContext.getLanguages();
 
         System.out.println("Possible languages:");
 
-        for(Language language : languageList.getAll())
-        {
+        for (Language language : languageList.getAll()) {
             System.out.println(" " + language.getShortCode());
         }
 
         Language selectedlanguage = null;
 
-        while(selectedlanguage == null)
-        {
+        while (selectedlanguage == null) {
             System.out.print("Enter language: ");
             String shortCode = this.readNotEmptyConsoleValue();
 
             selectedlanguage = languageList.getLanguageByShortCode(shortCode);
 
-            if(selectedlanguage == null)
-            {
+            if (selectedlanguage == null) {
                 System.out.println("Please, enter correct language short code!");
             }
         }
@@ -129,17 +112,14 @@ public class ConfigFileConsoleWizard
         importContext.setImportLanguage(selectedlanguage);
     }
 
-    private void specifyTokens(ConfigFile configFile, ImportContext importContext)
-    {
+    private void specifyTokens(ConfigFile configFile, ImportContext importContext) {
         List<Category> categories = importContext.getCategories().getCategories(0);
-        
+
         Language lang = importContext.getImportLanguage();
 
-        for(Category category : categories)
-        {
+        for (Category category : categories) {
             String categoryName = category.getName(lang.getId());
-            if(categoryName == null || categoryName.isEmpty())
-            {
+            if (categoryName == null || categoryName.isEmpty()) {
                 Logger.getLogger(ConfigFileConsoleWizard.class.getName()).log(
                         Level.INFO, "Empty category name, will be skipped. Id: {0}", category.getId());
                 continue;

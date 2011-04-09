@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.model;
 
 import java.util.HashMap;
@@ -17,25 +16,21 @@ import org.w3c.dom.Element;
  * Used for storing languages
  * @author Anykey Skovorodkin
  */
-public class Languages extends XmlObjectsListBase<Language>
-{
+public class Languages extends XmlObjectsListBase<Language> {
+
     public static final String ROOT_NODE_NAME = "LanguageList";
+    private HashMap<Integer, Language> languagesMap = new HashMap<Integer, Language>();
 
-    private HashMap<Integer,Language> languagesMap = new HashMap<Integer, Language>();
-
-    public Languages()
-    {
+    public Languages() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-
     /**
      * Gets language by id.
      * @param langId
      * @return
      */
-    public Language getById(int langId)
-    {
+    public Language getById(int langId) {
         return this.languagesMap.get(langId);
     }
 
@@ -44,19 +39,15 @@ public class Languages extends XmlObjectsListBase<Language>
      * @return
      */
     @Override
-    public Language[] getAll()
-    {
+    public Language[] getAll() {
         return this.languagesMap.values().toArray(new Language[0]);
     }
 
-    public Language getLanguageByShortCode(String shortCode)
-    {
+    public Language getLanguageByShortCode(String shortCode) {
         Language[] languages = this.getAll();
 
-        for(Language language : languages)
-        {
-            if(language.getShortCode().equalsIgnoreCase(shortCode))
-            {
+        for (Language language : languages) {
+            if (language.getShortCode().equalsIgnoreCase(shortCode)) {
                 return language;
             }
         }
@@ -65,22 +56,17 @@ public class Languages extends XmlObjectsListBase<Language>
     }
 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="XmlObjectsListBase implementation">
-    
     @Override
-    protected String getChildNodesName()
-    {
+    protected String getChildNodesName() {
         return Language.ROOT_NODE_NAME;
     }
 
     @Override
-    protected Language loadFromElement(Element objElement) throws Throwable
-    {
+    protected Language loadFromElement(Element objElement) throws Throwable {
         Language language = new Language();
-        
-        if(language.parseFromElement(objElement))
-        {
+
+        if (language.parseFromElement(objElement)) {
             return language;
         }
 
@@ -88,20 +74,15 @@ public class Languages extends XmlObjectsListBase<Language>
     }
 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
-    
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    public void saveObject(Language object)
-    {
+    public void saveObject(Language object) {
         this.languagesMap.put(object.getId(), object);
     }
-
     // </editor-fold>
 }

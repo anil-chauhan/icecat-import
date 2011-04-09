@@ -25,28 +25,25 @@ import java.util.logging.Logger;
  * Used for filtering parsed ProductFileRef
  * @author Anykey Skovorodkin
  */
-public abstract class ProductFileRefFilterBase
-{
+public abstract class ProductFileRefFilterBase {
+
     private ArrayBlockingQueue<ProductFileRef> productRefs = new ArrayBlockingQueue<ProductFileRef>(
             Constants.BLOCKING_QUEUE_CAPACITY);
-
     private volatile CountDownLatch taskMonitor;
     protected int parsingThreadsCount = 0;
     private ExecutorService executorService;
     protected ImportContext importContext;
     protected ArrayList<QueueProcessorTask> tasksList =
-                                            new ArrayList<QueueProcessorTask>();
+            new ArrayList<QueueProcessorTask>();
     protected CountDownLatch importerMonitor;
     protected ProductImporterBase productImporter;
 
-    public ProductFileRefFilterBase(ImportContext importContext, 
-            int parsingThreadsCount) throws IllegalArgumentException
-    {
-        this.importContext       = importContext;
+    public ProductFileRefFilterBase(ImportContext importContext,
+            int parsingThreadsCount) throws IllegalArgumentException {
+        this.importContext = importContext;
         this.parsingThreadsCount = parsingThreadsCount;
 
-        if(parsingThreadsCount < 1)
-        {
+        if (parsingThreadsCount < 1) {
             throw new IllegalArgumentException("parsingThreadsCount must be >= 1");
         }
 
@@ -56,8 +53,7 @@ public abstract class ProductFileRefFilterBase
     protected abstract ProductImporterBase getProductImporter(CountDownLatch taskMonitor,
             ArrayBlockingQueue<ParsedProductInfo> resultQueue, ImportContext importContext);
 
-    public void init()
-    {
+    public void init() {
         this.productRefs.clear();
         this.tasksList.clear();
 
@@ -68,38 +64,33 @@ public abstract class ProductFileRefFilterBase
 
         this.initImporter(resultQueue);
 
-        for (int i = 0; i < this.parsingThreadsCount; i++)
-        {
+        for (int i = 0; i < this.parsingThreadsCount; i++) {
             this.executeTask(new ProductFileRefProcessingTask(taskMonitor,
-                                             this.productRefs,
-                                             resultQueue,
-                                             this.importContext.getUserName(),
-                                             this.importContext.getPassword(),
-                                             this.importContext.getImportLanguage()));
+                    this.productRefs,
+                    resultQueue,
+                    this.importContext.getUserName(),
+                    this.importContext.getPassword(),
+                    this.importContext.getImportLanguage()));
         }
     }
 
-    private void initImporter(ArrayBlockingQueue<ParsedProductInfo> resultQueue)
-    {
+    private void initImporter(ArrayBlockingQueue<ParsedProductInfo> resultQueue) {
         this.importerMonitor = new CountDownLatch(1);
         this.productImporter = this.getProductImporter(this.importerMonitor,
-                                                  resultQueue, this.importContext);
+                resultQueue, this.importContext);
         this.productImporter.init();
         this.executorService.execute(this.productImporter);
     }
 
-    private void executeTask(QueueProcessorTask task)
-    {
+    private void executeTask(QueueProcessorTask task) {
         this.executorService.execute(task);
         this.tasksList.add(task);
     }
 
     protected abstract boolean acceptInternal(ProductFileRef productFileRef);
 
-    public boolean accept(ProductFileRef productFileRef) throws InterruptedException
-    {
-        if(this.acceptInternal(productFileRef))
-        {
+    public boolean accept(ProductFileRef productFileRef) throws InterruptedException {
+        if (this.acceptInternal(productFileRef)) {
             this.productRefs.put(productFileRef);
             return true;
         }
@@ -107,10 +98,8 @@ public abstract class ProductFileRefFilterBase
         return false;
     }
 
-    public void waitForExit() throws InterruptedException
-    {
-        for(QueueProcessorTask task : this.tasksList)
-        {
+    public void waitForExit() throws InterruptedException {
+        for (QueueProcessorTask task : this.tasksList) {
             task.cancel();
         }
 

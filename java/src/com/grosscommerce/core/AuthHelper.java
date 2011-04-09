@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.core;
 
 import com.emission.framework.logon.LogOn;
@@ -16,10 +15,9 @@ import com.emission.framework.logon.LogOn;
  * Used for getting access token which can be used for working with Emission Framework
  * @author Anykey Skovorodkin
  */
-public class AuthHelper
-{
-    public static String getAccessToken(String token, String userName, String password)
-    {
+public class AuthHelper {
+
+    public static String getAccessToken(String token, String userName, String password) {
         LogOn logOn = new LogOn();
         return logOn.getBasicHttpBindingILogOn().process(token, userName, password);
     }

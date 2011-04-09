@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.core;
 
 import com.emission.framework.product.IProduct;
@@ -37,8 +36,8 @@ import java.util.logging.Logger;
  * Used for importing products by using emission-framework.
  * @author Anykey Skovorodkin
  */
-public class ProductImporter extends ProductImporterBase
-{
+public class ProductImporter extends ProductImporterBase {
+
     private Token token;
     private String accessToken;
     private IProduct productService;
@@ -47,23 +46,22 @@ public class ProductImporter extends ProductImporterBase
     private String password;
     private AtomicInteger productsCounter = new AtomicInteger(0);
     private CopyOnWriteArrayList<ProductImporterTask> tasks =
-                                                      new CopyOnWriteArrayList<ProductImporterTask>();
+            new CopyOnWriteArrayList<ProductImporterTask>();
     private ExecutorService executorService;
     private int countImportThreads = 2;
     private ArrayBlockingQueue<ParsedProductInfo> products =
-                                                  new ArrayBlockingQueue<ParsedProductInfo>(
+            new ArrayBlockingQueue<ParsedProductInfo>(
             Constants.BLOCKING_QUEUE_CAPACITY);
     private CountDownLatch tasksMonitor;
     private ConcurrentHashMap<Integer, Integer> categoriesAssociations =
-                                                new ConcurrentHashMap<Integer, Integer>();
+            new ConcurrentHashMap<Integer, Integer>();
 
     public ProductImporter(CountDownLatch taskMonitor,
-                           BlockingQueue<ParsedProductInfo> queue,
-                           Token token,
-                           String userName,
-                           String password,
-                           ImportContext importContext)
-    {
+            BlockingQueue<ParsedProductInfo> queue,
+            Token token,
+            String userName,
+            String password,
+            ImportContext importContext) {
         super(taskMonitor, queue, importContext);
 
         this.token = token;
@@ -71,25 +69,21 @@ public class ProductImporter extends ProductImporterBase
         this.password = password;
         this.countImportThreads = token.getThreadsCount();
 
-        if (countImportThreads <= 0)
-        {
+        if (countImportThreads <= 0) {
             throw new IllegalArgumentException(
                     "Threads count <= 0, token: " + token.getValue());
         }
 
-        if(this.importContext.getImportType() != ImportType.Full)
-        {
+        if (this.importContext.getImportType() != ImportType.Full) {
             throw new IllegalArgumentException(this.importContext.getImportType() + " is not supported yet");
         }
     }
 
     @Override
-    protected void processNextObject(ParsedProductInfo item) throws Throwable
-    {
+    protected void processNextObject(ParsedProductInfo item) throws Throwable {
         Product product = item.getProduct();
 
-        if (product == null)
-        {
+        if (product == null) {
             // may be network errors occurred or other ones
             // in any case, this product is not valid, so we skip it
             return;
@@ -102,11 +96,10 @@ public class ProductImporter extends ProductImporterBase
     }
 
     @Override
-    public void init()
-    {
+    public void init() {
         this.accessToken = AuthHelper.getAccessToken(this.token.getValue(),
-                                                     this.userName,
-                                                     this.password);
+                this.userName,
+                this.password);
 
         Product_Service product = new Product_Service();
         this.productService = product.getBasicHttpBindingIProduct();
@@ -131,8 +124,7 @@ public class ProductImporter extends ProductImporterBase
 
         this.executorService = ThreadPoolUtil.createThreadsPool();
 
-        for (int i = 0; i < this.countImportThreads; i++)
-        {
+        for (int i = 0; i < this.countImportThreads; i++) {
             ProductImporterTask importerTask = new ProductImporterTask(
                     tasksMonitor,
                     products,
@@ -148,24 +140,19 @@ public class ProductImporter extends ProductImporterBase
     }
 
     @Override
-    public void cancel()
-    {
+    public void cancel() {
         super.cancel();
 
         Logger.getLogger(ProductImporter.class.getName()).info("Cancelling...");
-        for (ProductImporterTask importerTask : tasks)
-        {
+        for (ProductImporterTask importerTask : tasks) {
             importerTask.cancel();
         }
 
-        try
-        {
+        try {
             this.tasksMonitor.await();
-        }
-        catch (InterruptedException ex)
-        {
+        } catch (InterruptedException ex) {
             Logger.getLogger(ProductImporter.class.getName()).log(Level.SEVERE,
-                                                                  null, ex);
+                    null, ex);
         }
 
         Logger.getLogger(ProductImporter.class.getName()).info(
@@ -173,22 +160,20 @@ public class ProductImporter extends ProductImporterBase
         this.executorService.shutdownNow();
     }
 
-    private void checkCategoriesAssociations(ParsedProductInfo item)
-    {
+    private void checkCategoriesAssociations(ParsedProductInfo item) {
         Integer iceCategoryId = item.getProduct().getCatId();
         Integer emissionFrameworkCategoryId = this.categoriesAssociations.get(
                 iceCategoryId);
 
-        if (emissionFrameworkCategoryId != null)
-        {
+        if (emissionFrameworkCategoryId != null) {
             return;
         }
 
         // we must create new category
         ProductCategory category = this.categoryService.create(this.accessToken,
-                                                               this.importContext.getCategoryName(
+                this.importContext.getCategoryName(
                 iceCategoryId),
-                                                               0);
+                0);
 
         this.categoriesAssociations.put(iceCategoryId, category.getId());
 
@@ -199,8 +184,8 @@ public class ProductImporter extends ProductImporterBase
     }
 
     // <editor-fold defaultstate="collapsed" desc="ProductImporterTask">
-    private static class ProductImporterTask extends QueueProcessorTask<ParsedProductInfo>
-    {
+    private static class ProductImporterTask extends QueueProcessorTask<ParsedProductInfo> {
+
         private String accessToken;
         private ConcurrentHashMap<Integer, Integer> categoriesAssociations;
         private IProduct productService;
@@ -208,11 +193,10 @@ public class ProductImporter extends ProductImporterBase
         private AtomicInteger productsCounter;
 
         public ProductImporterTask(CountDownLatch taskMonitor,
-                                   BlockingQueue<ParsedProductInfo> queue,
-                                   String accessToken,
-                                   ConcurrentHashMap<Integer, Integer> categoriesAssociations,
-                                   AtomicInteger productsCounter)
-        {
+                BlockingQueue<ParsedProductInfo> queue,
+                String accessToken,
+                ConcurrentHashMap<Integer, Integer> categoriesAssociations,
+                AtomicInteger productsCounter) {
             super(taskMonitor, queue);
 
             this.accessToken = accessToken;
@@ -220,8 +204,7 @@ public class ProductImporter extends ProductImporterBase
             this.productsCounter = productsCounter;
         }
 
-        public void init()
-        {
+        public void init() {
             Product_Service product_Service = new Product_Service();
             this.productService = product_Service.getBasicHttpBindingIProduct();
 
@@ -230,8 +213,7 @@ public class ProductImporter extends ProductImporterBase
         }
 
         @Override
-        protected void processNextObject(ParsedProductInfo item) throws Throwable
-        {
+        protected void processNextObject(ParsedProductInfo item) throws Throwable {
             Product product = item.getProduct();
 
             com.emission.framework.product.Product p = this.productService.create(
@@ -248,8 +230,7 @@ public class ProductImporter extends ProductImporterBase
             Integer emissionFrameworkCategoryId = this.categoriesAssociations.get(
                     item.getProductFileRef().getCatId());
 
-            if (emissionFrameworkCategoryId == null)
-            {
+            if (emissionFrameworkCategoryId == null) {
                 Logger.getLogger(ProductImporterTask.class.getName()).log(
                         Level.WARNING,
                         "Something bad happened, we can't found association with icecat category: {0} in our model",
@@ -258,7 +239,7 @@ public class ProductImporter extends ProductImporterBase
             }
 
             this.categoryService.add(this.accessToken, p.getId(),
-                                     emissionFrameworkCategoryId);
+                    emissionFrameworkCategoryId);
             System.out.println(
                     "Count products: " + this.productsCounter.incrementAndGet());
         }

@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.utilities;
 
 import java.util.ArrayList;
@@ -20,49 +19,40 @@ import java.util.List;
  * because some platforms (like android) can't spport it.
  * @author Anykey Skovorodkin
  */
-public class EventListenerListEx
-{
+public class EventListenerListEx {
+
     private HashMap<Class<?>, ArrayList<?>> listeners =
             new HashMap<Class<?>, ArrayList<?>>();
 
-    public synchronized <T extends EventListener> void addListener(Class<T> cl, T listener)
-    {
+    public synchronized <T extends EventListener> void addListener(Class<T> cl, T listener) {
         ArrayList<T> thisClassListeners = null;
 
-        if(this.listeners.containsKey(cl))
-        {
-            thisClassListeners = (ArrayList<T>)this.listeners.get(cl);
-        }
-        else
-        {
+        if (this.listeners.containsKey(cl)) {
+            thisClassListeners = (ArrayList<T>) this.listeners.get(cl);
+        } else {
             thisClassListeners = new ArrayList<T>();
             this.listeners.put(cl, thisClassListeners);
         }
 
-        if(!thisClassListeners.contains(listener))
-        {
+        if (!thisClassListeners.contains(listener)) {
             thisClassListeners.add(listener);
         }
     }
 
-    public synchronized <T extends EventListener> void removeListener(Class<T> cl, T listener)
-    {
-        if(this.listeners.containsKey(cl))
-        {
-            ArrayList<T> lst = (ArrayList<T>)this.listeners.get(cl);
+    public synchronized <T extends EventListener> void removeListener(Class<T> cl, T listener) {
+        if (this.listeners.containsKey(cl)) {
+            ArrayList<T> lst = (ArrayList<T>) this.listeners.get(cl);
             lst.remove(listener);
         }
     }
 
-    public synchronized <T extends EventListener> List<T> getListeners(Class<T> cl)
-    {
+    public synchronized <T extends EventListener> List<T> getListeners(Class<T> cl) {
         List<T> result = new ArrayList<T>();
 
-        if(this.listeners.containsKey(cl))
-        {
+        if (this.listeners.containsKey(cl)) {
             ArrayList<T> thisClassListeners =
-                    (ArrayList<T>)this.listeners.get(cl);
-            
+                    (ArrayList<T>) this.listeners.get(cl);
+
             result.addAll(thisClassListeners);
         }
 

@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.base;
 
 import com.grosscommerce.ICEcat.common.QueueProcessorTask;
@@ -19,12 +18,11 @@ import java.util.concurrent.CountDownLatch;
  * Base class for all product importers.
  * @author Anykey Skovorodkin
  */
-public abstract class ProductImporterBase extends QueueProcessorTask<ParsedProductInfo>
-{
+public abstract class ProductImporterBase extends QueueProcessorTask<ParsedProductInfo> {
+
     protected ImportContext importContext;
 
-    public ProductImporterBase(CountDownLatch taskMonitor, BlockingQueue<ParsedProductInfo> queue, ImportContext importContext)
-    {
+    public ProductImporterBase(CountDownLatch taskMonitor, BlockingQueue<ParsedProductInfo> queue, ImportContext importContext) {
         super(taskMonitor, queue);
         this.importContext = importContext;
     }

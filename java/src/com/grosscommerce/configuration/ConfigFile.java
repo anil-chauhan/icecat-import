@@ -29,55 +29,44 @@ import org.xml.sax.SAXException;
  * Used for reading and writing config file.
  * @author Anykey Skovorodkin
  */
-public class ConfigFile extends XmlObjectBase
-{
-    public static final String ROOT_NODE_NAME = "Config";
+public class ConfigFile extends XmlObjectBase {
 
+    public static final String ROOT_NODE_NAME = "Config";
     private static final String LANGUAGE_PROP = "language";
-    
-    @XmlFieldAnnotation (nodeType = XmlNodeType.XmlNode, propertyName = LANGUAGE_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(nodeType = XmlNodeType.XmlNode, propertyName = LANGUAGE_PROP, valueType = ValueTypeEnum.String)
     private String languageShortCode = Constants.DEFAULT_LANGUAGE_SHORT_CODE;
-    
     private ICECatSettings iCECatSettings = new ICECatSettings();
     private ImporterSettings importerSettings = new ImporterSettings();
 
-    public ConfigFile()
-    {
+    public ConfigFile() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    
-    public ICECatSettings getiCECatSettings()
-    {
+    public ICECatSettings getiCECatSettings() {
         return iCECatSettings;
     }
 
-    public ImporterSettings getImporterSettings()
-    {
+    public ImporterSettings getImporterSettings() {
         return importerSettings;
     }
 
-    public String getLanguageShortCode()
-    {
+    public String getLanguageShortCode() {
         return languageShortCode;
     }
 
-    public void setLanguageShortCode(String languageShortCode)
-    {
+    public void setLanguageShortCode(String languageShortCode) {
         this.languageShortCode = languageShortCode;
     }
 
     // </editor-fold>
-    
-    public void saveToFile(File file) throws TransformerException, ParserConfigurationException
-    {
+    public void saveToFile(File file) throws TransformerException, ParserConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         // create root element
         Document doc = docBuilder.newDocument();
         Element rootElement = doc.createElement(ROOT_NODE_NAME);
         doc.appendChild(rootElement);
-        
+
         // save model
         this.saveToThisElement(rootElement);
 
@@ -85,28 +74,24 @@ public class ConfigFile extends XmlObjectBase
         XmlUtil.saveDocumentToFile(doc, file);
     }
 
-    public void loadFromFile(File file) throws IOException, IllegalAccessException, ParserConfigurationException, SAXException
-    {
+    public void loadFromFile(File file) throws IOException, IllegalAccessException, ParserConfigurationException, SAXException {
         Document doc = XmlUtil.loadFromFile(file);
         this.parseFromElement(doc.getDocumentElement());
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
+    protected void saveToElementInternal(Element parentElement) {
     }
     // </editor-fold>
 }

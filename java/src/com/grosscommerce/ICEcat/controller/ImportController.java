@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.controller;
 
 import com.grosscommerce.ICEcat.common.Constants;
@@ -25,44 +24,35 @@ import java.util.logging.Logger;
  * Used for controlling parsing process.
  * @author Anykey Skovorodkin
  */
-public class ImportController
-{
+public class ImportController {
+
     private ImportContext importContext;
-    
     private ArrayList<ProductFileRefFilterBase> filters = new ArrayList<ProductFileRefFilterBase>();
 
-    public ImportController(ImportContext context)
-    {
+    public ImportController(ImportContext context) {
         this.importContext = context;
     }
 
-    public void registerFilter(ProductFileRefFilterBase filter)
-    {
+    public void registerFilter(ProductFileRefFilterBase filter) {
         this.filters.add(filter);
     }
 
-    public void doImport() throws IllegalStateException
-    {
+    public void doImport() throws IllegalStateException {
         this.initFilters();
 
-        if(this.importContext.getImportType() != ImportType.Full)
-        {
+        if (this.importContext.getImportType() != ImportType.Full) {
             throw new IllegalStateException(this.importContext.getImportType() + " is not supported yet!");
         }
 
-        try
-        {
+        try {
             this.startProcessingIndexFile();
-        }
-        catch (Throwable ex)
-        {
+        } catch (Throwable ex) {
             Logger.getLogger(ImportController.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
     }
 
-    private void startProcessingIndexFile() throws Throwable
-    {
+    private void startProcessingIndexFile() throws Throwable {
         String indexFileURL = this.getIndexFileURL();
 
         byte[] data = Downloader.download(indexFileURL,
@@ -79,47 +69,38 @@ public class ImportController
         this.waitForFilters();
     }
 
-    private void waitForFilters() throws InterruptedException
-    {
+    private void waitForFilters() throws InterruptedException {
         Logger.getLogger(ImportController.class.getName()).info("Wait for finishing");
 
-        for(ProductFileRefFilterBase filter : this.filters)
-        {
+        for (ProductFileRefFilterBase filter : this.filters) {
             filter.waitForExit();
         }
     }
 
-    private String getIndexFileURL()
-    {
+    private String getIndexFileURL() {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(Constants.FREE_XML_BASE_URL);
         strBuilder.append(this.importContext.getImportLanguage().getShortCode());
         strBuilder.append("/");
-        
+
         strBuilder.append(this.importContext.getImportType().getIndexFileName());
-                
+
         return strBuilder.toString();
     }
 
-    private void initFilters() throws IllegalStateException
-    {
-        if(this.filters.isEmpty())
-        {
+    private void initFilters() throws IllegalStateException {
+        if (this.filters.isEmpty()) {
             throw new IllegalStateException("No filters. You must register one for doing import. Use registerFilter method");
         }
 
-        for(ProductFileRefFilterBase filter : this.filters)
-        {
+        for (ProductFileRefFilterBase filter : this.filters) {
             filter.init();
         }
     }
 
-    protected void acceptProductFileRef(ProductFileRef productFileRef) throws InterruptedException
-    {
-        for(ProductFileRefFilterBase filter : this.filters)
-        {
-            if(filter.accept(productFileRef))
-            {
+    protected void acceptProductFileRef(ProductFileRef productFileRef) throws InterruptedException {
+        for (ProductFileRefFilterBase filter : this.filters) {
+            if (filter.accept(productFileRef)) {
                 break;
             }
         }
@@ -129,21 +110,16 @@ public class ImportController
 
     // <editor-fold defaultstate="collapsed" desc="IndexFilesParserListener">
     private class IndexFilesParserListener implements
-            XmlObjectsListListener<ProductFileRef>
-    {
+            XmlObjectsListListener<ProductFileRef> {
 
         @Override
-        public void onProductFileRefParsed(ProductFileRef object)
-        {
-            try
-            {
+        public void onProductFileRefParsed(ProductFileRef object) {
+            try {
                 acceptProductFileRef(object);
-            }
-            catch (InterruptedException ex)
-            {
+            } catch (InterruptedException ex) {
                 Logger.getLogger(ImportController.class.getName()).log(
                         Level.SEVERE,
-                                                                       null, ex);
+                        null, ex);
             }
         }
     }// </editor-fold>

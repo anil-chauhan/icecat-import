@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.console;
 
 import com.grosscommerce.ICEcat.common.Constants;
@@ -21,42 +20,34 @@ import java.util.logging.Logger;
  * Used for parsing command line's arguments
  * @author Anykey Skovorodkin
  */
-public class CommandLineParser
-{
+public class CommandLineParser {
+
     private JobTypeEnum jobType;
     public static final String CONFIG_FILE_ARGUMENT = "-configFile";
-    public static final String FULL_IMPORT_TYPE     = "-full";
-    public static final String UPDATE_IMPORT_TYPE   = "-update";
-
+    public static final String FULL_IMPORT_TYPE = "-full";
+    public static final String UPDATE_IMPORT_TYPE = "-update";
     private File configFilePath = null;
     private ImportType importType = ImportType.Full;
 
-    public CommandLineParser()
-    {
+    public CommandLineParser() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public JobTypeEnum getJobType()
-    {
+    public JobTypeEnum getJobType() {
         return jobType;
     }
 
-    public File getConfigFilePath()
-    {
+    public File getConfigFilePath() {
         return configFilePath;
     }
 
-    public ImportType getImportType()
-    {
+    public ImportType getImportType() {
         return importType;
     }
-    
-    // </editor-fold>
 
-    public void parseArguments(String[] cmdArgs) throws IllegalArgumentException
-    {
-        if(cmdArgs.length < 1)
-        {
+    // </editor-fold>
+    public void parseArguments(String[] cmdArgs) throws IllegalArgumentException {
+        if (cmdArgs.length < 1) {
             // will be two arguments: job type and config file path
             throw new IllegalArgumentException("Should be more than one argument");
         }
@@ -64,16 +55,15 @@ public class CommandLineParser
         // parse job type
         this.jobType = JobTypeEnum.valueOfIgnoreCase(cmdArgs[0]);
 
-        switch(this.jobType)
-        {
+        switch (this.jobType) {
             case CreateConfig:
                 this.parseAgrumentsForConfigCreation(Arrays.asList(cmdArgs));
                 break;
-                
+
             case ImportCatalog:
                 this.parseAgrumentsForImport(Arrays.asList(cmdArgs));
                 break;
-                
+
             case Help:
                 break; // nothing to do
 
@@ -82,51 +72,38 @@ public class CommandLineParser
         }
     }
 
-    private void parseAgrumentsForImport(List<String> cmdArgs)
-    {
-        if(cmdArgs.contains(FULL_IMPORT_TYPE))
-        {
+    private void parseAgrumentsForImport(List<String> cmdArgs) {
+        if (cmdArgs.contains(FULL_IMPORT_TYPE)) {
             this.importType = ImportType.Full;
-        }
-        else if(cmdArgs.contains(UPDATE_IMPORT_TYPE))
-        {
+        } else if (cmdArgs.contains(UPDATE_IMPORT_TYPE)) {
             this.importType = ImportType.Update;
         }
 
         this.configFilePath = this.getConfigFileArg(cmdArgs);
     }
 
-    private File getConfigFileArg(List<String> cmdArgs)
-    {
-        if(cmdArgs.contains(CONFIG_FILE_ARGUMENT))
-        {
+    private File getConfigFileArg(List<String> cmdArgs) {
+        if (cmdArgs.contains(CONFIG_FILE_ARGUMENT)) {
             int index = cmdArgs.indexOf(CONFIG_FILE_ARGUMENT);
 
-            if(index == cmdArgs.size() - 1)
-            {
+            if (index == cmdArgs.size() - 1) {
                 throw new IllegalArgumentException("Please, specify file path. For example: ... " + CONFIG_FILE_ARGUMENT + " \"/home/config.xml\"");
-            }
-            else
-            {
+            } else {
                 return new File(cmdArgs.get(index + 1));
             }
-        }
-        else
-        {
+        } else {
             Logger.getLogger("Config file is not specified, so we will use user.dir.");
-            
+
             return new File(System.getProperty("user.dir"),
                     Constants.DEFAULT_CONFIG_FILE_NAME);
         }
     }
 
-    private void parseAgrumentsForConfigCreation(List<String> cmdArgs)
-    {
+    private void parseAgrumentsForConfigCreation(List<String> cmdArgs) {
         this.configFilePath = this.getConfigFileArg(cmdArgs);
     }
 
-    public static void printArgumentsInfo()
-    {
+    public static void printArgumentsInfo() {
         System.out.println("Arguments: ");
         System.out.println("  Job types:");
         System.out.println("      " + JobTypeEnum.Help.toString() + "   shows help information");

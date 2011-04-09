@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.utilities;
 
 import java.util.concurrent.ExecutorService;
@@ -19,43 +18,38 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Used for creating threads pools.
  * @author Anykey Skovorodkin
  */
-public class ThreadPoolUtil
-{
-    public static ExecutorService createThreadsPool()
-    {
+public class ThreadPoolUtil {
+
+    public static ExecutorService createThreadsPool() {
         return Executors.newCachedThreadPool(new CustomThreadsFactory());
     }
 
     private static class CustomThreadsFactory
-            implements ThreadFactory
-    {
+            implements ThreadFactory {
+
         static final AtomicInteger poolNumber = new AtomicInteger(1);
         final ThreadGroup group;
         final AtomicInteger threadNumber = new AtomicInteger(1);
         final String namePrefix;
 
-        CustomThreadsFactory()
-        {
+        CustomThreadsFactory() {
             SecurityManager s = System.getSecurityManager();
             group = (s != null) ? s.getThreadGroup()
                     : Thread.currentThread().getThreadGroup();
             namePrefix = "pool-"
-                         + poolNumber.getAndIncrement()
-                         + "-thread-";
+                    + poolNumber.getAndIncrement()
+                    + "-thread-";
         }
 
         @Override
-        public Thread newThread(Runnable r)
-        {
+        public Thread newThread(Runnable r) {
             Thread t = new Thread(group, r,
-                                  namePrefix + threadNumber.getAndIncrement(),
-                                  0);
-            if (!t.isDaemon())
-            {
+                    namePrefix + threadNumber.getAndIncrement(),
+                    0);
+            if (!t.isDaemon()) {
                 t.setDaemon(true);
             }
-            if (t.getPriority() != Thread.NORM_PRIORITY)
-            {
+            if (t.getPriority() != Thread.NORM_PRIORITY) {
                 t.setPriority(Thread.NORM_PRIORITY);
             }
             return t;

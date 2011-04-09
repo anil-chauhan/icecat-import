@@ -25,24 +25,19 @@ import org.apache.commons.codec.binary.Base64;
  * Used for downloading binary data.
  * @author Anykey Skovorodkin
  */
-public abstract class Downloader
-{
+public abstract class Downloader {
 
-    public static byte[] download(String urlFrom, String login, String pwd) throws Throwable
-    {
-        try
-        {
+    public static byte[] download(String urlFrom, String login, String pwd) throws Throwable {
+        try {
             HttpURLConnection uc = prepareConnection(urlFrom, login, pwd);
 
             uc.connect();
 
-            if (uc.getResponseCode() != HttpURLConnection.HTTP_OK)
-            {
+            if (uc.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 Logger.getLogger(Downloader.class.getName()).log(
                         Level.INFO,
                         "Error, code: {0}, message {1}",
-                        new Object[]
-                        {
+                        new Object[]{
                             uc.getResponseCode(), uc.getResponseMessage()
                         });
 
@@ -52,25 +47,22 @@ public abstract class Downloader
             BufferedInputStream is = null;
 
             if ((uc.getContentEncoding() != null && uc.getContentEncoding().toLowerCase().equals(
-                 "gzip"))
-                || uc.getContentType() != null && uc.getContentType().toLowerCase().contains(
                     "gzip"))
-            {
+                    || uc.getContentType() != null && uc.getContentType().toLowerCase().contains(
+                    "gzip")) {
                 is = new BufferedInputStream(new GZIPInputStream(
                         uc.getInputStream()));
 
                 Logger.getLogger(Downloader.class.getName()).log(Level.INFO,
-                                                                 "Will download gzip data from: {0}",
-                                                                 urlFrom);
-            }
-            else
-            {
+                        "Will download gzip data from: {0}",
+                        urlFrom);
+            } else {
                 is = new BufferedInputStream(
                         uc.getInputStream());
 
                 Logger.getLogger(Downloader.class.getName()).log(Level.INFO,
-                                                                 "Will download not compressed data from:{0}",
-                                                                 urlFrom);
+                        "Will download not compressed data from:{0}",
+                        urlFrom);
             }
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -83,26 +75,22 @@ public abstract class Downloader
             Logger.getLogger(Downloader.class.getName()).log(
                     Level.INFO,
                     "Downloaded {0} byte(s)",
-                    new Object[]
-                    {
+                    new Object[]{
                         resultBuffer.length
                     });
 
             return resultBuffer;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(Downloader.class.getName()).log(Level.SEVERE,
-                                                             "URL: " + urlFrom,
-                                                             ex);
+                    "URL: " + urlFrom,
+                    ex);
 
             throw ex;
         }
     }
 
     private static HttpURLConnection prepareConnection(String urlFrom, String login, String pwd)
-            throws ProtocolException, IOException, MalformedURLException
-    {
+            throws ProtocolException, IOException, MalformedURLException {
         URL url = new URL(urlFrom);
         HttpURLConnection uc = (HttpURLConnection) url.openConnection();
         // set up url connection to get retrieve information back

@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.model;
 
 import org.w3c.dom.Element;
@@ -16,8 +15,8 @@ import org.w3c.dom.Element;
  * Base interface for all objects, which can be parsed from xml files.
  * @author Anykey Skovorodkin
  */
-public interface IXmlObject
-{
+public interface IXmlObject {
+
     public static final String ID_PROP = "ID";
     public static final String CATID_PROP = "Catid";
     public static final String HIGHPICHEIGHT_PROP = "HighPicHeight";
@@ -45,6 +44,7 @@ public interface IXmlObject
      * @param thisObjectElement xml element, which present THIS object.
      */
     public boolean parseFromElement(Element thisObjectElement) throws IllegalArgumentException;
+
     /**
      * Will append new xml node which stores model of this object.
      * @param parentElement

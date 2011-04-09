@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.core;
 
 import com.grosscommerce.ICEcat.model.XmlObjectsListBase;
@@ -19,45 +18,37 @@ import org.w3c.dom.Element;
  * Used for storing tokens.
  * @author Anykey Skovorodkin
  */
-public class Tokens extends XmlObjectsListBase<Token>
-{
-    public static final String ROOT_NODE_NAME = "TokensList";
+public class Tokens extends XmlObjectsListBase<Token> {
 
+    public static final String ROOT_NODE_NAME = "TokensList";
     private ArrayList<Token> tokens = new ArrayList<Token>();
 
-    public Tokens()
-    {
+    public Tokens() {
     }
 
-    public void add(Token token)
-    {
+    public void add(Token token) {
         this.tokens.add(token);
     }
 
-    public boolean remove(Token token)
-    {
+    public boolean remove(Token token) {
         return this.tokens.remove(token);
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectsListBase">
     @Override
-    public Token[] getAll()
-    {
+    public Token[] getAll() {
         return this.tokens.toArray(new Token[0]);
     }
 
     @Override
-    protected String getChildNodesName()
-    {
+    protected String getChildNodesName() {
         return Token.ROOT_NODE_NAME;
     }
 
     @Override
-    protected Token loadFromElement(Element objElement) throws Throwable
-    {
+    protected Token loadFromElement(Element objElement) throws Throwable {
         Token token = new Token();
-        if (token.parseFromElement(objElement))
-        {
+        if (token.parseFromElement(objElement)) {
             return token;
         }
 
@@ -66,17 +57,13 @@ public class Tokens extends XmlObjectsListBase<Token>
     }
 
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected void saveObject(Token object)
-    {
+    protected void saveObject(Token object) {
         this.tokens.add(object);
     }
-
     // </editor-fold>
-
 }

@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.core;
 
 import com.grosscommerce.ICEcat.model.XmlObjectBase;
@@ -19,83 +18,68 @@ import org.w3c.dom.Element;
  * Used for accessing to web service.
  * @author Anykey Skovorodkin
  */
-public class Token extends XmlObjectBase
-{
+public class Token extends XmlObjectBase {
+
     public static final String ROOT_NODE_NAME = "Token";
     private static final String CATEGORY_NAME_PROP = "CatName";
     private static final String VALUE_PROP = "Value";
     private static final String THREADS_COUNT_PROP = "Threads_Count";
-
-    @XmlFieldAnnotation(propertyName=CATID_PROP,valueType=ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = CATID_PROP, valueType = ValueTypeEnum.Int)
     private int catId;
-    @XmlFieldAnnotation(propertyName=CATEGORY_NAME_PROP,valueType=ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = CATEGORY_NAME_PROP, valueType = ValueTypeEnum.String)
     private String catName;
-    @XmlFieldAnnotation(propertyName=THREADS_COUNT_PROP,valueType=ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = THREADS_COUNT_PROP, valueType = ValueTypeEnum.Int)
     private int threadsCount = 1;
-    @XmlFieldAnnotation(propertyName=VALUE_PROP,valueType=ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = VALUE_PROP, valueType = ValueTypeEnum.String)
     private String value;
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getCatId()
-    {
+    public int getCatId() {
         return catId;
     }
 
-    public void setCatId(int catId)
-    {
+    public void setCatId(int catId) {
         this.catId = catId;
     }
 
-    public String getCatName()
-    {
+    public String getCatName() {
         return catName;
     }
 
-    public void setCatName(String catName)
-    {
+    public void setCatName(String catName) {
         this.catName = catName;
     }
 
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public int getThreadsCount()
-    {
+    public int getThreadsCount() {
         return threadsCount;
     }
 
-    public void setThreadsCount(int threadsCount)
-    {
+    public void setThreadsCount(int threadsCount) {
         this.threadsCount = threadsCount;
     }
-    
-    // </editor-fold>
 
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
-    
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
+    protected void saveToElementInternal(Element parentElement) {
     }
-
     // </editor-fold>
 }

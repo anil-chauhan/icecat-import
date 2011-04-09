@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.configuration;
 
 import com.grosscommerce.ICEcat.common.Constants;
@@ -19,39 +18,30 @@ import com.grosscommerce.ICEcat.model.annotations.XmlNodeType;
  * ICECat config element.
  * @author Anykey Skovorodkin
  */
-public class ICECatSettings extends SettingsBase
-{
+public class ICECatSettings extends SettingsBase {
+
     public static final String ROOT_NODE_NAME = "ice_settings";
     private static final String PARSING_THREADS_COUNT_PROP = "parsing_threads";
-
-    @XmlFieldAnnotation (nodeType = XmlNodeType.XmlNode, propertyName = PARSING_THREADS_COUNT_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(nodeType = XmlNodeType.XmlNode, propertyName = PARSING_THREADS_COUNT_PROP, valueType = ValueTypeEnum.Int)
     private int parsingThreadsCount = Constants.THREADS_COUNT;
 
-    public ICECatSettings()
-    {
+    public ICECatSettings() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-
-    public int getParsingThreadsCount()
-    {
+    public int getParsingThreadsCount() {
         return parsingThreadsCount;
     }
 
-    public void setParsingThreadsCount(int parsingThreadsCount)
-    {
+    public void setParsingThreadsCount(int parsingThreadsCount) {
         this.parsingThreadsCount = parsingThreadsCount;
     }
 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="SettingsBase">
-    
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
-
     // </editor-fold>
 }

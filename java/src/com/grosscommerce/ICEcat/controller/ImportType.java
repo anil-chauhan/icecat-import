@@ -7,15 +7,14 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.controller;
 
 /**
  * Import type enum.
  * @author Anykey Skovorodkin
  */
-public enum ImportType
-{
+public enum ImportType {
+
     /**
      * Used for importing full catalog.
      */
@@ -24,16 +23,13 @@ public enum ImportType
      * Used for updates existing catalog.
      */
     Update("daily.index.xml");
-
     private String indexFileName;
 
-    private ImportType(String indexFileName)
-    {
+    private ImportType(String indexFileName) {
         this.indexFileName = indexFileName;
     }
 
-    public String getIndexFileName()
-    {
+    public String getIndexFileName() {
         return indexFileName;
     }
 }

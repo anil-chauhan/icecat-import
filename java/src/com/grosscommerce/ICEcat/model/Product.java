@@ -22,8 +22,7 @@ import org.w3c.dom.Element;
  * Product object.
  * @author Anykey Skovorodkin
  */
-public class Product extends XmlObjectBase
-{
+public class Product extends XmlObjectBase {
 
     public static final String ROOT_NODE_NAME = "Product";
     public static final String PRODID_PROP = "Prod_id";
@@ -35,38 +34,38 @@ public class Product extends XmlObjectBase
     /**
      * Url to high product picture.
      */
-    @XmlFieldAnnotation (propertyName = HIGHPIC_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = HIGHPIC_PROP, valueType = ValueTypeEnum.String)
     private String highPicUrl;
-    @XmlFieldAnnotation (propertyName = HIGHPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
     private int highPicWidth;
-    @XmlFieldAnnotation (propertyName = HIGHPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
     private int highPicHeight;
     /**
      * Size of picture in bytes.
      */
-    @XmlFieldAnnotation (propertyName = HIGHPICSIZE_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICSIZE_PROP, valueType = ValueTypeEnum.Int)
     private int highPicSize;
-    @XmlFieldAnnotation (propertyName = ID_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = ID_PROP, valueType = ValueTypeEnum.Int)
     private int id;
-    @XmlFieldAnnotation (propertyName = LOWPIC_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = LOWPIC_PROP, valueType = ValueTypeEnum.String)
     private String lowPicUrl;
-    @XmlFieldAnnotation (propertyName = LOWPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = LOWPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
     private int lowPicHeight;
-    @XmlFieldAnnotation (propertyName = LOWPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = LOWPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
     private int lowPicWidth;
-    @XmlFieldAnnotation (propertyName = LOWPICSIZE_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = LOWPICSIZE_PROP, valueType = ValueTypeEnum.Int)
     private int lowPicSize;
-    @XmlFieldAnnotation (propertyName = NAME_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = NAME_PROP, valueType = ValueTypeEnum.String)
     private String name;
-    @XmlFieldAnnotation (propertyName = PRODID_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = PRODID_PROP, valueType = ValueTypeEnum.String)
     private String prodID;
-    @XmlFieldAnnotation (propertyName = RELEASEDATE_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = RELEASEDATE_PROP, valueType = ValueTypeEnum.String)
     private String releaseDate;
-    @XmlFieldAnnotation (propertyName = THUMBPIC_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = THUMBPIC_PROP, valueType = ValueTypeEnum.String)
     private String thumbPicUrl;
-    @XmlFieldAnnotation (propertyName = THUMBPICSIZE_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = THUMBPICSIZE_PROP, valueType = ValueTypeEnum.Int)
     private int thumbPicSize;
-    @XmlFieldAnnotation (propertyName = TITLE_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = TITLE_PROP, valueType = ValueTypeEnum.String)
     private String title;
     /**
      * Possible only 3 values:
@@ -80,129 +79,106 @@ public class Product extends XmlObjectBase
      *
      * May be better, if this fild will be pressed as enum in future, but now we store it as String.
      */
-    @XmlFieldAnnotation (propertyName = QUALITY_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = QUALITY_PROP, valueType = ValueTypeEnum.String)
     private String quality;
     /**
      * Parrent category id.
      */
     private int catId;
     private HashMap<Integer, CategoryFeatureGroup> featuresGroups =
-                                                   new HashMap<Integer, CategoryFeatureGroup>();
-    
+            new HashMap<Integer, CategoryFeatureGroup>();
     private SummaryDescription summaryDescription = new SummaryDescription();
 
-    public Product()
-    {
+    public Product() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getHighPicHeight()
-    {
+    public int getHighPicHeight() {
         return highPicHeight;
     }
 
-    public int getHighPicSize()
-    {
+    public int getHighPicSize() {
         return highPicSize;
     }
 
-    public String getHighPicUrl()
-    {
+    public String getHighPicUrl() {
         return highPicUrl;
     }
 
-    public int getHighPicWidth()
-    {
+    public int getHighPicWidth() {
         return highPicWidth;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public int getLowPicHeight()
-    {
+    public int getLowPicHeight() {
         return lowPicHeight;
     }
 
-    public int getLowPicSize()
-    {
+    public int getLowPicSize() {
         return lowPicSize;
     }
 
-    public String getLowPicUrl()
-    {
+    public String getLowPicUrl() {
         return lowPicUrl;
     }
 
-    public int getLowPicWidth()
-    {
+    public int getLowPicWidth() {
         return lowPicWidth;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getProdID()
-    {
+    public String getProdID() {
         return prodID;
     }
 
-    public String getQuality()
-    {
+    public String getQuality() {
         return quality;
     }
 
-    public String getReleaseDate()
-    {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public int getThumbPicSize()
-    {
+    public int getThumbPicSize() {
         return thumbPicSize;
     }
 
-    public String getThumbPicUrl()
-    {
+    public String getThumbPicUrl() {
         return thumbPicUrl;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public int getCatId()
-    {
+    public int getCatId() {
         return catId;
     }
 
-    public SummaryDescription getSummaryDescription()
-    {
+    public SummaryDescription getSummaryDescription() {
         return this.summaryDescription;
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         // parse category id
         Element categoryElem = XmlUtil.selectSingleElement(thisObjectElement,
-                                                           CATEGORY_NODE_NAME);
+                CATEGORY_NODE_NAME);
 
-        if (categoryElem == null)
-        {
+        if (categoryElem == null) {
             Logger.getLogger(Product.class.getName()).severe(
                     "Category elem is not found.");
             return false;
@@ -216,9 +192,8 @@ public class Product extends XmlObjectBase
 
         // parse summary description
         Element summaryDescrptElem = XmlUtil.selectSingleElement(thisObjectElement,
-                                                                 SummaryDescription.ROOT_NODE_NAME);
-        if(summaryDescrptElem != null)
-        {
+                SummaryDescription.ROOT_NODE_NAME);
+        if (summaryDescrptElem != null) {
             this.summaryDescription.parseFromElement(summaryDescrptElem);
         }
 
@@ -226,49 +201,39 @@ public class Product extends XmlObjectBase
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
+    protected void saveToElementInternal(Element parentElement) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private void parseProductFeatures(Element thisObjectElement) throws IllegalArgumentException
-    {
+    private void parseProductFeatures(Element thisObjectElement) throws IllegalArgumentException {
         List<Element> productFeatureElems = XmlUtil.selectElementsByName(
                 thisObjectElement, ProductFeature.ROOT_NODE_NAME);
 
-        for (Element productFeatureElem : productFeatureElems)
-        {
+        for (Element productFeatureElem : productFeatureElems) {
             ProductFeature feature = new ProductFeature();
-            if (feature.parseFromElement(productFeatureElem))
-            {
+            if (feature.parseFromElement(productFeatureElem)) {
                 CategoryFeatureGroup group = this.featuresGroups.get(
                         feature.getCategoryFeatureGroupId());
 
-                if (group != null)
-                {
+                if (group != null) {
                     group.addProductFeature(feature);
-                }
-                else
-                {
+                } else {
                     Logger.getLogger(Product.class.getName()).log(Level.SEVERE,
-                                                                  "CategoryFeatureGroup with id: {0} is not found",
-                                                                  feature.getCategoryFeatureGroupId());
+                            "CategoryFeatureGroup with id: {0} is not found",
+                            feature.getCategoryFeatureGroupId());
                 }
             }
         }
     }
 
-    private void parseCategoryFeatureGroups(Element thisObjectElement) throws IllegalArgumentException
-    {
+    private void parseCategoryFeatureGroups(Element thisObjectElement) throws IllegalArgumentException {
         // parse feature groups
         List<Element> categoryFeatureGroupsElems = XmlUtil.selectElementsByName(
                 thisObjectElement,
                 CategoryFeatureGroup.ROOT_NODE_NAME);
-        for (Element categoryFeatureGroupElem : categoryFeatureGroupsElems)
-        {
+        for (Element categoryFeatureGroupElem : categoryFeatureGroupsElems) {
             CategoryFeatureGroup group = new CategoryFeatureGroup();
-            if (group.parseFromElement(categoryFeatureGroupElem))
-            {
+            if (group.parseFromElement(categoryFeatureGroupElem)) {
                 this.featuresGroups.put(group.getId(), group);
             }
         }
@@ -277,25 +242,24 @@ public class Product extends XmlObjectBase
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="overrides">
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Product{"
-               + " highPicUrl=" + highPicUrl
-               + " highPicWidth=" + highPicWidth
-               + " highPicHeight=" + highPicHeight
-               + " highPicSize=" + highPicSize
-               + " id=" + id
-               + " lowPicUrl=" + lowPicUrl
-               + " lowPicHeight=" + lowPicHeight
-               + " lowPicWidth=" + lowPicWidth
-               + " lowPicSize=" + lowPicSize
-               + " name=" + name
-               + " prodID=" + prodID
-               + " releaseDate=" + releaseDate
-               + " thumbPicUrl=" + thumbPicUrl
-               + " thumbPicSize=" + thumbPicSize
-               + " title=" + title
-               + " quality=" + quality
-               + " catId=" + catId + '}';
+                + " highPicUrl=" + highPicUrl
+                + " highPicWidth=" + highPicWidth
+                + " highPicHeight=" + highPicHeight
+                + " highPicSize=" + highPicSize
+                + " id=" + id
+                + " lowPicUrl=" + lowPicUrl
+                + " lowPicHeight=" + lowPicHeight
+                + " lowPicWidth=" + lowPicWidth
+                + " lowPicSize=" + lowPicSize
+                + " name=" + name
+                + " prodID=" + prodID
+                + " releaseDate=" + releaseDate
+                + " thumbPicUrl=" + thumbPicUrl
+                + " thumbPicSize=" + thumbPicSize
+                + " title=" + title
+                + " quality=" + quality
+                + " catId=" + catId + '}';
     }// </editor-fold>
 }

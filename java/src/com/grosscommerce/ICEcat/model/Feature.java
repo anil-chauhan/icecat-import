@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.model;
 
 import com.grosscommerce.ICEcat.model.annotations.XmlLocalizedFieldAnnotation;
@@ -17,46 +16,38 @@ import org.w3c.dom.Element;
  * Feature description. (Partially parsed)
  * @author Anykey Skovorodkin
  */
-public class Feature extends XmlObjectBase
-{
-    public static final String ROOT_NODE_NAME = "Feature";
+public class Feature extends XmlObjectBase {
 
-    @XmlLocalizedFieldAnnotation(nodeName=NAME_PROP)
+    public static final String ROOT_NODE_NAME = "Feature";
+    @XmlLocalizedFieldAnnotation(nodeName = NAME_PROP)
     private LocalizedValue name = new LocalizedValue();
 
-    public Feature()
-    {
+    public Feature() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public String getName(int langId)
-    {
+    public String getName(int langId) {
         return this.name.getValue(langId);
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
+    protected void saveToElementInternal(Element parentElement) {
     }
 
     // </editor-fold>
-
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Feature{" + "name=" + name + '}';
     }
 }

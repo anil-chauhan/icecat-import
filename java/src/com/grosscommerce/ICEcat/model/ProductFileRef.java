@@ -26,29 +26,28 @@ import org.xml.sax.Attributes;
  * Used as object, which present file object in all Index Files.
  * @author Anykey Skovorodkin
  */
-public class ProductFileRef extends XmlObjectBase
-{
+public class ProductFileRef extends XmlObjectBase {
 
     public static final String ROOT_NODE_NAME = "file";
     /**
      * Relative path to document, which describe product.
      */
-    @XmlFieldAnnotation (nullable = false, propertyName = PATH_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(nullable = false, propertyName = PATH_PROP, valueType = ValueTypeEnum.String)
     private String path;
     /**
      * ICEcat product id.
      */
-    @XmlFieldAnnotation (propertyName = PRODUCT_ID_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = PRODUCT_ID_PROP, valueType = ValueTypeEnum.Int)
     private int productId;
     /**
      * It is a manufacturer’s unique identifier for a product.
      */
-    @XmlFieldAnnotation (propertyName = PROD_ID_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = PROD_ID_PROP, valueType = ValueTypeEnum.String)
     private String prodId;
     /**
      * Last update time.
      */
-    @XmlFieldAnnotation (propertyName = UPDATED_PROP, valueType = ValueTypeEnum.DateTime)
+    @XmlFieldAnnotation(propertyName = UPDATED_PROP, valueType = ValueTypeEnum.DateTime)
     private Date updated;
     /**
      * Possible only 3 values:
@@ -62,168 +61,145 @@ public class ProductFileRef extends XmlObjectBase
      *
      * May be better, if this fild will be pressed as enum in future, but now we store it as String.
      */
-    @XmlFieldAnnotation (propertyName = QUALITY_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = QUALITY_PROP, valueType = ValueTypeEnum.String)
     private String quality;
     /**
      * Stores id of supplier.
      */
-    @XmlFieldAnnotation (propertyName = SUPPLIER_ID_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = SUPPLIER_ID_PROP, valueType = ValueTypeEnum.Int)
     private int supplierId;
     /**
      * Id of product's category.
      */
-    @XmlFieldAnnotation (nullable = false, propertyName = CATID_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(nullable = false, propertyName = CATID_PROP, valueType = ValueTypeEnum.Int)
     private int catId;
     /**
      * Indicates whether a product is somewhere seen on the market by ICEcat.
      */
-    @XmlFieldAnnotation (propertyName = ON_MARKET_PROP, valueType = ValueTypeEnum.Boolean)
+    @XmlFieldAnnotation(propertyName = ON_MARKET_PROP, valueType = ValueTypeEnum.Boolean)
     private boolean onMarket;
-    @XmlFieldAnnotation (propertyName = MODEL_NAME_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = MODEL_NAME_PROP, valueType = ValueTypeEnum.String)
     private String modelName;
     /**
      * Indicates how many times the current product was requested.
      */
-    @XmlFieldAnnotation (propertyName = PRODUCT_VIEW_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = PRODUCT_VIEW_PROP, valueType = ValueTypeEnum.Int)
     private int productView;
     /**
      * Url to high product picture.
      */
-    @XmlFieldAnnotation (propertyName = HIGHPIC_PROP, valueType = ValueTypeEnum.String)
+    @XmlFieldAnnotation(propertyName = HIGHPIC_PROP, valueType = ValueTypeEnum.String)
     private String highPicUrl;
-    @XmlFieldAnnotation (propertyName = HIGHPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICWIDTH_PROP, valueType = ValueTypeEnum.Int)
     private int highPicWidth;
-    @XmlFieldAnnotation (propertyName = HIGHPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICHEIGHT_PROP, valueType = ValueTypeEnum.Int)
     private int highPicHeight;
     /**
      * Size of picture in bytes.
      */
-    @XmlFieldAnnotation (propertyName = HIGHPICSIZE_PROP, valueType = ValueTypeEnum.Int)
+    @XmlFieldAnnotation(propertyName = HIGHPICSIZE_PROP, valueType = ValueTypeEnum.Int)
     private int highPicSize;
 
-    public ProductFileRef()
-    {
+    public ProductFileRef() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getCatId()
-    {
+    public int getCatId() {
         return catId;
     }
 
-    public int getHighPicHeight()
-    {
+    public int getHighPicHeight() {
         return highPicHeight;
     }
 
-    public int getHighPicSize()
-    {
+    public int getHighPicSize() {
         return highPicSize;
     }
 
-    public String getHighPicUrl()
-    {
+    public String getHighPicUrl() {
         return highPicUrl;
     }
 
-    public int getHighPicWidth()
-    {
+    public int getHighPicWidth() {
         return highPicWidth;
     }
 
-    public String getModelName()
-    {
+    public String getModelName() {
         return modelName;
     }
 
-    public boolean isOnMarket()
-    {
+    public boolean isOnMarket() {
         return onMarket;
     }
 
-    public String getPath()
-    {
+    public String getPath() {
         return path;
     }
 
-    public String getProdId()
-    {
+    public String getProdId() {
         return prodId;
     }
 
-    public int getProductId()
-    {
+    public int getProductId() {
         return productId;
     }
 
-    public int getProductView()
-    {
+    public int getProductView() {
         return productView;
     }
 
-    public String getQuality()
-    {
+    public String getQuality() {
         return quality;
     }
 
-    public int getSupplierId()
-    {
+    public int getSupplierId() {
         return supplierId;
     }
 
-    public Date getUpdated()
-    {
+    public Date getUpdated() {
         return updated;
     }// </editor-fold>
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "ProductFileRef{"
-               + "path=" + path
-               + ", productId=" + productId
-               + ", prodId=" + prodId
-               + ", updated=" + updated
-               + ", quality=" + quality
-               + ", supplierId=" + supplierId
-               + ", catId=" + catId
-               + ", onMarket=" + onMarket
-               + ", modelName=" + modelName
-               + ", productView=" + productView
-               + ", highPicUrl=" + highPicUrl
-               + ", highPicWidth=" + highPicWidth
-               + ", highPicHeight=" + highPicHeight
-               + ", highPicSize=" + highPicSize + '}';
+                + "path=" + path
+                + ", productId=" + productId
+                + ", prodId=" + prodId
+                + ", updated=" + updated
+                + ", quality=" + quality
+                + ", supplierId=" + supplierId
+                + ", catId=" + catId
+                + ", onMarket=" + onMarket
+                + ", modelName=" + modelName
+                + ", productView=" + productView
+                + ", highPicUrl=" + highPicUrl
+                + ", highPicWidth=" + highPicWidth
+                + ", highPicHeight=" + highPicHeight
+                + ", highPicSize=" + highPicSize + '}';
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
 
-    protected Object getValueFromAttributes(Attributes attributes, XmlFieldAnnotation annotation) throws NumberFormatException
-    {
+    protected Object getValueFromAttributes(Attributes attributes, XmlFieldAnnotation annotation) throws NumberFormatException {
         String value = attributes.getValue(annotation.propertyName());
         Object objValue = null;
-        if (value != null && ! value.isEmpty())
-        {
-            switch (annotation.valueType())
-            {
+        if (value != null && !value.isEmpty()) {
+            switch (annotation.valueType()) {
                 case Boolean:
                     objValue = Boolean.valueOf(value);
                     break;
                 case DateTime:
-                    try
-                    {
+                    try {
                         objValue = DateUtil.stringToDate(value);
-                    }
-                    catch (ParseException ex)
-                    {
+                    } catch (ParseException ex) {
                         Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                                                                             null,
-                                                                             ex);
+                                null,
+                                ex);
                     }
                     break;
                 case Int:
@@ -238,33 +214,26 @@ public class ProductFileRef extends XmlObjectBase
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement)
-    {
+    protected boolean parseFromElementInternal(Element thisObjectElement) {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement)
-    {
+    protected void saveToElementInternal(Element parentElement) {
     }
 
     // </editor-fold>
-    public void loadFromAttributes(Attributes attributes)
-    {
+    public void loadFromAttributes(Attributes attributes) {
         List<Field> fields = this.getAllFields();
 
-        for (Field field : fields)
-        {
-            if (field.isAnnotationPresent(XmlFieldAnnotation.class))
-            {
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(XmlFieldAnnotation.class)) {
                 XmlFieldAnnotation annotation = field.getAnnotation(
                         XmlFieldAnnotation.class);
-                if (annotation.nodeType() == XmlNodeType.XmlAttribute)
-                {
+                if (annotation.nodeType() == XmlNodeType.XmlAttribute) {
                     Object objValue = this.getValueFromAttributes(attributes,
-                                                             annotation);
-                    if(objValue != null)
-                    {
+                            annotation);
+                    if (objValue != null) {
                         this.setFieldValue(field, objValue);
                     }
                 }
@@ -272,32 +241,24 @@ public class ProductFileRef extends XmlObjectBase
         }
     }
 
-    protected void setFieldValue(Field field, Object objValue) throws SecurityException
-    {
+    protected void setFieldValue(Field field, Object objValue) throws SecurityException {
         boolean restoreAccessible = false;
-        if ( ! field.isAccessible())
-        {
+        if (!field.isAccessible()) {
             field.setAccessible(true);
             restoreAccessible = true;
         }
-        
-        try
-        {
+
+        try {
             field.set(this, objValue);
-        }
-        catch (IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                                                                 null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
+                    null, ex);
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                                                                 null, ex);
+                    null, ex);
         }
-        
-        if (restoreAccessible)
-        {
+
+        if (restoreAccessible) {
             field.setAccessible(false);
         }
     }

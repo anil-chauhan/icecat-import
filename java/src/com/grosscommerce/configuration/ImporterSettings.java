@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.configuration;
 
 import com.grosscommerce.core.Tokens;
@@ -16,28 +15,22 @@ import com.grosscommerce.core.Tokens;
  * Settings for catalog's importer.
  * @author Anykey Skovorodkin
  */
-public class ImporterSettings extends SettingsBase
-{
-    public static final String ROOT_NODE_NAME = "importer_settings";
+public class ImporterSettings extends SettingsBase {
 
+    public static final String ROOT_NODE_NAME = "importer_settings";
     private Tokens tokens = new Tokens();
-    
-    public ImporterSettings()
-    {
+
+    public ImporterSettings() {
     }
 
-    public Tokens getTokens()
-    {
+    public Tokens getTokens() {
         return tokens;
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBse">
     @Override
-    public String getRootNodeName()
-    {
+    public String getRootNodeName() {
         return ROOT_NODE_NAME;
     }
     // </editor-fold>
-
-
 }

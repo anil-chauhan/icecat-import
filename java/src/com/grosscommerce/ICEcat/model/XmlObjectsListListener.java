@@ -7,7 +7,6 @@
  *
  * Copyright 2011 GrossCommerce
  */
-
 package com.grosscommerce.ICEcat.model;
 
 import java.util.EventListener;
@@ -16,7 +15,7 @@ import java.util.EventListener;
  *
  * @author Anykey Skovorodkin
  */
-public interface XmlObjectsListListener<T extends XmlObjectBase> extends EventListener
-{
+public interface XmlObjectsListListener<T extends XmlObjectBase> extends EventListener {
+
     public void onProductFileRefParsed(T object);
 }

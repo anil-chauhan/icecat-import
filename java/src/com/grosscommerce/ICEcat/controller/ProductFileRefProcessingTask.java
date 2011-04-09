@@ -21,8 +21,8 @@ import java.util.concurrent.CountDownLatch;
  * Used for downloading real information about product.
  * @author Anykey Skovorodkin
  */
-public class ProductFileRefProcessingTask extends QueueProcessorTask<ProductFileRef>
-{
+public class ProductFileRefProcessingTask extends QueueProcessorTask<ProductFileRef> {
+
     private String userName;
     private String password;
     private BlockingQueue<ParsedProductInfo> resultQueue;
@@ -30,12 +30,11 @@ public class ProductFileRefProcessingTask extends QueueProcessorTask<ProductFile
     private Language language;
 
     public ProductFileRefProcessingTask(CountDownLatch taskMonitor,
-                                        BlockingQueue<ProductFileRef> tasksQueue,
-                                        BlockingQueue<ParsedProductInfo> resultQueue,
-                                        String userName,
-                                        String password,
-                                        Language language)
-    {
+            BlockingQueue<ProductFileRef> tasksQueue,
+            BlockingQueue<ParsedProductInfo> resultQueue,
+            String userName,
+            String password,
+            Language language) {
         super(taskMonitor, tasksQueue);
 
         this.userName = userName;
@@ -45,27 +44,21 @@ public class ProductFileRefProcessingTask extends QueueProcessorTask<ProductFile
     }
 
     @Override
-    protected void processNextObject(ProductFileRef object) throws Throwable
-    {
+    protected void processNextObject(ProductFileRef object) throws Throwable {
         ParsedProductInfo importTaskItem = new ParsedProductInfo(object, this.language);
         importTaskItem.setImportType(this.importType);
 
-        try
-        {
+        try {
             importTaskItem.setProduct(ResourcesDownloader.downloadProduct(
                     object.getPath(),
                     this.userName,
                     this.password));
             importTaskItem.setParsingStatus(ParsedProductInfo.ParsingStatus.Success);
-        }
-        catch (Throwable ex)
-        {
+        } catch (Throwable ex) {
             importTaskItem.setParsingStatus(ParsedProductInfo.ParsingStatus.Failure);
             importTaskItem.setExeption(ex);
             throw ex;
-        }
-        finally
-        {
+        } finally {
             this.resultQueue.put(importTaskItem);
         }
     }
