@@ -1,4 +1,4 @@
-This is simple instruction how you can compile our project’s modules.
+This is simple instruction how you can compile our project modules.
 
 For working with ICEcatImporter you need:
  - jdk (we use jdk1.6.0_24)
@@ -12,6 +12,6 @@ You can use our icecat api by LGPL (http://www.gnu.org/licenses/lgpl.html) in yo
 
 
 
-For building ice.jar (our test application which use icecat-api-1.0.jar) use:
+For building icecat-import.jar (our test application which use icecat-api-1.0.jar) use:
 
 ant -buildfile build.xml BuildAll

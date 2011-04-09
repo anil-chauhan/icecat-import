@@ -10,8 +10,8 @@
 package com.grosscommerce.ICEcat.controller;
 
 import com.grosscommerce.ICEcat.common.Constants;
-import com.grosscommerce.ICEcat.productimporterbase.ParsedProductInfo;
-import com.grosscommerce.ICEcat.productimporterbase.ProductImporterBase;
+import com.grosscommerce.ICEcat.base.ParsedProductInfo;
+import com.grosscommerce.ICEcat.base.ProductImporterBase;
 import com.grosscommerce.ICEcat.common.QueueProcessorTask;
 import com.grosscommerce.ICEcat.model.ProductFileRef;
 import com.grosscommerce.ICEcat.utilities.ThreadPoolUtil;

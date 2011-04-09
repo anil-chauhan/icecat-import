@@ -36,7 +36,7 @@ public class ProductFileRef extends XmlObjectBase
     @XmlFieldAnnotation (nullable = false, propertyName = PATH_PROP, valueType = ValueTypeEnum.String)
     private String path;
     /**
-     * IceCat product id.
+     * ICEcat product id.
      */
     @XmlFieldAnnotation (propertyName = PRODUCT_ID_PROP, valueType = ValueTypeEnum.Int)
     private int productId;
@@ -75,7 +75,7 @@ public class ProductFileRef extends XmlObjectBase
     @XmlFieldAnnotation (nullable = false, propertyName = CATID_PROP, valueType = ValueTypeEnum.Int)
     private int catId;
     /**
-     * Indicates whether a product is somewhere seen on the market by IceCat.
+     * Indicates whether a product is somewhere seen on the market by ICEcat.
      */
     @XmlFieldAnnotation (propertyName = ON_MARKET_PROP, valueType = ValueTypeEnum.Boolean)
     private boolean onMarket;

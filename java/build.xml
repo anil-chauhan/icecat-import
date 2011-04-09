@@ -65,7 +65,7 @@
             <map from="${distdir}/" to=""/>
         </pathconvert>
         <mkdir dir="${distdir}"/>
-        <jar destfile="${distdir}/ice.jar">
+        <jar destfile="${distdir}/icecat-import.jar">
             <fileset dir="${builddir}">
                 <exclude name="com/grosscommerce/ICEcatAPI/**"/>
                 <include name="com/grosscommerce/**" />
@@ -84,10 +84,10 @@
             </fileset>
         </copy>
     </target>
-    <target name="BuildAll" depends="CompileAll, PackAll,CopyLibs">
+    <target name="BuildAll" depends="CompileAll, PackAll, CopyLibs">
         <echo>Done!</echo>
     </target>
-    <target name="BuildICEcatAPI" depends="CompileAll, PackICEcatAPI,CopyLibs">
+    <target name="BuildICEcatAPI" depends="CompileAll, PackICEcatAPI, CopyLibs">
         <echo>Done!</echo>
     </target>
     <target name="CleanAll">
@@ -102,10 +102,10 @@
             </fileset>
         </delete>
     </target>
-    <target name="profile" depends="BuildAll" description="Profile Project">
+    <target name="Profile" depends="BuildAll" description="Profile Project">
         <nbprofiledirect>
             <classpath>
-                <pathelement location="${distdir}/ice.jar"/>
+                <pathelement location="${distdir}/icecat-import.jar"/>
                 <pathelement path="${main.class}"/>
             </classpath>
         </nbprofiledirect>
@@ -115,7 +115,7 @@
             <jvmarg value="-Xmx512M" />
         </java>
     </target>
-    <target name="RunICEcatImporter" depends="BuildAll">
+    <target name="Run" depends="BuildAll">
         <java classname="${main.class}" fork="true" dir="${distdir}">
             <classpath refid="DistCP"/>
             <jvmarg value="-Xmx1024M" />

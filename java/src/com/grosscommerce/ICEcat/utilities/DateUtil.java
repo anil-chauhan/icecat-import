@@ -15,18 +15,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Used for working with IceCat's date.
+ * Used for working with ICEcat's date.
  * @author Anykey Skovorodkin
  */
 public abstract class DateUtil
 {
     /**
-     * Used for parsing IceCat date time.
+     * Used for parsing ICEcat date time.
      */
     private static final SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 
     /**
-     * Used for parsing IceCat's data to java.util.Data.
+     * Used for parsing ICEcat's data to java.util.Data.
      * @param strDate
      * @return
      * @throws ParseException
@@ -37,7 +37,7 @@ public abstract class DateUtil
     }
 
     /**
-     * Converts data to IceCat data string.
+     * Converts data to ICEcat data string.
      * @param date
      * @return
      */

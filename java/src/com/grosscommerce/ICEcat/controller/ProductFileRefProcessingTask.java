@@ -9,7 +9,7 @@
  */
 package com.grosscommerce.ICEcat.controller;
 
-import com.grosscommerce.ICEcat.productimporterbase.ParsedProductInfo;
+import com.grosscommerce.ICEcat.base.ParsedProductInfo;
 import com.grosscommerce.ICEcat.utilities.ResourcesDownloader;
 import com.grosscommerce.ICEcat.common.QueueProcessorTask;
 import com.grosscommerce.ICEcat.model.Language;

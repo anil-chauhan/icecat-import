@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package com.grosscommerce.ICEcat.productimporterbase;
+package com.grosscommerce.ICEcat.base;
 
 import com.grosscommerce.ICEcat.common.QueueProcessorTask;
 import com.grosscommerce.ICEcat.controller.ImportContext;

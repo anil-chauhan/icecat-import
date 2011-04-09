@@ -142,8 +142,8 @@ public class CommandLineParser
         System.out.println();
 
         System.out.println("Command line examples:");
-        System.out.println("   Create config file: java -jar ice.jar -createConfig -configFile \"/home/admin/ice/config.xml\"");
-        System.out.println("   Import full catalog: java -jar ice.jar -import -full -configFile \"/home/admin/ice/config.xml\"");
-        System.out.println("   Update catalog: java -jar ice.jar -import -update -configFile \"/home/admin/ice/config.xml\"");
+        System.out.println("   Create config file: java -jar icecat-import.jar -createConfig -configFile \"~/icecat-import/config.xml\"");
+        System.out.println("   Import full catalog: java -jar icecat-import.jar -import -full -configFile \"~/icecat-import/config.xml\"");
+        System.out.println("   Update catalog: java -jar icecat-import.jar -import -update -configFile \"~/icecat-import/config.xml\"");
     }
 }
