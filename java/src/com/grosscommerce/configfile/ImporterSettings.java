@@ -8,9 +8,9 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.configfile;
+package com.grosscommerce.configfile;
 
-import gc.emission.framework.importer.Tokens;
+import com.grosscommerce.emission.framework.importer.Tokens;
 
 /**
  * Settings for catalog's importer.

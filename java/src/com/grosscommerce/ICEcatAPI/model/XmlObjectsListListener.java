@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.model;
+package com.grosscommerce.ICEcatAPI.model;
 
 import java.util.EventListener;
 

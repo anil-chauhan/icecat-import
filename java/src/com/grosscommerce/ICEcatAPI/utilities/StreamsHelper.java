@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.utilities;
+package com.grosscommerce.ICEcatAPI.utilities;
 
 import java.io.IOException;
 import java.io.InputStream;

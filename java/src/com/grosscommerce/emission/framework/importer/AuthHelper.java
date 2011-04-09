@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.emission.framework.importer;
+package com.grosscommerce.emission.framework.importer;
 
 import com.emission.framework.logon.LogOn;
 

@@ -8,9 +8,9 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.emission.framework.importer;
+package com.grosscommerce.emission.framework.importer;
 
-import gc.ICEcatAPI.model.XmlObjectsListBase;
+import com.grosscommerce.ICEcatAPI.model.XmlObjectsListBase;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import org.w3c.dom.Element;

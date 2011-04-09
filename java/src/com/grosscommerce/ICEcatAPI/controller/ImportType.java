@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.controller;
+package com.grosscommerce.ICEcatAPI.controller;
 
 /**
  * Import type enum.

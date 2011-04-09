@@ -7,14 +7,14 @@
  *
  * Copyright 2011 GrossCommerce
  */
-package gc.ICEcatAPI.controller;
+package com.grosscommerce.ICEcatAPI.controller;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.productimporterbase.ParsedProductInfo;
-import gc.ICEcatAPI.productimporterbase.ProductImporterBase;
-import gc.ICEcatAPI.common.QueueProcessorTask;
-import gc.ICEcatAPI.model.ProductFileRef;
-import gc.ICEcatAPI.utilities.ThreadPoolUtil;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.productimporterbase.ParsedProductInfo;
+import com.grosscommerce.ICEcatAPI.productimporterbase.ProductImporterBase;
+import com.grosscommerce.ICEcatAPI.common.QueueProcessorTask;
+import com.grosscommerce.ICEcatAPI.model.ProductFileRef;
+import com.grosscommerce.ICEcatAPI.utilities.ThreadPoolUtil;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;

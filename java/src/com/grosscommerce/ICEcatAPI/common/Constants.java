@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.common;
+package com.grosscommerce.ICEcatAPI.common;
 
 /**
  *

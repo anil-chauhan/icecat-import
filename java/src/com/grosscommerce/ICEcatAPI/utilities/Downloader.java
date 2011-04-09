@@ -7,7 +7,7 @@
  *
  * Copyright 2011 GrossCommerce
  */
-package gc.ICEcatAPI.utilities;
+package com.grosscommerce.ICEcatAPI.utilities;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

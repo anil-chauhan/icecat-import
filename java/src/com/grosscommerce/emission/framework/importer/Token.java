@@ -8,11 +8,11 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.emission.framework.importer;
+package com.grosscommerce.emission.framework.importer;
 
-import gc.ICEcatAPI.model.XmlObjectBase;
-import gc.ICEcatAPI.model.annotations.ValueTypeEnum;
-import gc.ICEcatAPI.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcatAPI.model.XmlObjectBase;
+import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
 import org.w3c.dom.Element;
 
 /**

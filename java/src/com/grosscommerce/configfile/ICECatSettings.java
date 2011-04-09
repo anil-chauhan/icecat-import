@@ -8,12 +8,12 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.configfile;
+package com.grosscommerce.configfile;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.model.annotations.ValueTypeEnum;
-import gc.ICEcatAPI.model.annotations.XmlFieldAnnotation;
-import gc.ICEcatAPI.model.annotations.XmlNodeType;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlNodeType;
 
 /**
  * ICECat config element.

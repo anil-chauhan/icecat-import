@@ -8,13 +8,13 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.utilities;
+package com.grosscommerce.ICEcatAPI.utilities;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.model.Categories;
-import gc.ICEcatAPI.model.Languages;
-import gc.ICEcatAPI.model.Product;
-import gc.ICEcatAPI.model.XmlObjectBase;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.model.Categories;
+import com.grosscommerce.ICEcatAPI.model.Languages;
+import com.grosscommerce.ICEcatAPI.model.Product;
+import com.grosscommerce.ICEcatAPI.model.XmlObjectBase;
 import java.io.ByteArrayInputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;

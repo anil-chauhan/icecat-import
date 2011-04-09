@@ -8,12 +8,12 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.productimporterbase;
+package com.grosscommerce.ICEcatAPI.productimporterbase;
 
-import gc.ICEcatAPI.controller.ImportType;
-import gc.ICEcatAPI.model.Language;
-import gc.ICEcatAPI.model.Product;
-import gc.ICEcatAPI.model.ProductFileRef;
+import com.grosscommerce.ICEcatAPI.controller.ImportType;
+import com.grosscommerce.ICEcatAPI.model.Language;
+import com.grosscommerce.ICEcatAPI.model.Product;
+import com.grosscommerce.ICEcatAPI.model.ProductFileRef;
 
 /**
  * Used by ProductImporter for getting information about parsed product.

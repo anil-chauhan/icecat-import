@@ -8,14 +8,14 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.controller;
+package com.grosscommerce.ICEcatAPI.controller;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.model.IndexFileParser;
-import gc.ICEcatAPI.model.ProductFileRef;
-import gc.ICEcatAPI.model.SAXIndexFileParser;
-import gc.ICEcatAPI.model.XmlObjectsListListener;
-import gc.ICEcatAPI.utilities.Downloader;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.model.IndexFileParser;
+import com.grosscommerce.ICEcatAPI.model.ProductFileRef;
+import com.grosscommerce.ICEcatAPI.model.SAXIndexFileParser;
+import com.grosscommerce.ICEcatAPI.model.XmlObjectsListListener;
+import com.grosscommerce.ICEcatAPI.utilities.Downloader;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;

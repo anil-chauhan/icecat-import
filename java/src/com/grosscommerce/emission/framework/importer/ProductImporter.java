@@ -8,21 +8,21 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.emission.framework.importer;
+package com.grosscommerce.emission.framework.importer;
 
 import com.emission.framework.product.IProduct;
 import com.emission.framework.product.Product_Service;
 import com.emission.framework.productcategory.IProductCategory;
 import com.emission.framework.productcategory.ProductCategory;
 import com.emission.framework.productcategory.ProductCategory_Service;
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.common.QueueProcessorTask;
-import gc.ICEcatAPI.controller.ImportContext;
-import gc.ICEcatAPI.controller.ImportType;
-import gc.ICEcatAPI.model.Product;
-import gc.ICEcatAPI.productimporterbase.ParsedProductInfo;
-import gc.ICEcatAPI.productimporterbase.ProductImporterBase;
-import gc.ICEcatAPI.utilities.ThreadPoolUtil;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.common.QueueProcessorTask;
+import com.grosscommerce.ICEcatAPI.controller.ImportContext;
+import com.grosscommerce.ICEcatAPI.controller.ImportType;
+import com.grosscommerce.ICEcatAPI.model.Product;
+import com.grosscommerce.ICEcatAPI.productimporterbase.ParsedProductInfo;
+import com.grosscommerce.ICEcatAPI.productimporterbase.ProductImporterBase;
+import com.grosscommerce.ICEcatAPI.utilities.ThreadPoolUtil;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;

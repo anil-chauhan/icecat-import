@@ -7,14 +7,14 @@
  *
  * Copyright 2011 GrossCommerce
  */
-package gc.configfile;
+package com.grosscommerce.configfile;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.model.XmlObjectBase;
-import gc.ICEcatAPI.model.annotations.ValueTypeEnum;
-import gc.ICEcatAPI.model.annotations.XmlFieldAnnotation;
-import gc.ICEcatAPI.model.annotations.XmlNodeType;
-import gc.ICEcatAPI.utilities.XmlUtil;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.model.XmlObjectBase;
+import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlNodeType;
+import com.grosscommerce.ICEcatAPI.utilities.XmlUtil;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;

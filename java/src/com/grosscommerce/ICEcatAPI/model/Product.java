@@ -7,11 +7,11 @@
  *
  * Copyright 2011 GrossCommerce
  */
-package gc.ICEcatAPI.model;
+package com.grosscommerce.ICEcatAPI.model;
 
-import gc.ICEcatAPI.model.annotations.ValueTypeEnum;
-import gc.ICEcatAPI.model.annotations.XmlFieldAnnotation;
-import gc.ICEcatAPI.utilities.XmlUtil;
+import com.grosscommerce.ICEcatAPI.model.annotations.ValueTypeEnum;
+import com.grosscommerce.ICEcatAPI.model.annotations.XmlFieldAnnotation;
+import com.grosscommerce.ICEcatAPI.utilities.XmlUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;

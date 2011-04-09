@@ -4,21 +4,18 @@
     <property name="libdir" location="lib"/>
     <property name="distdir" location="dist"/>
     <property name="srcdir" location="src"/>
-    <property name="main.class" value="gc.Program"/>
+    <property name="main.class" value="com.grosscommerce.Program"/>
     <property name="debuginfo" value="true"/>
-
     <path id="DistCP">
-    <!-- TODO configure the runtime classpath for your project here: -->
         <fileset dir="${distdir}">
             <include name="*.jar"/>
         </fileset>
     </path>
-
     <target name="CompileAll" description="Compile all java code into .class files">
         <echo>Compiling...</echo>
         <mkdir dir="${builddir}"/>
-        <copy todir="${builddir}/gc/properties">
-            <fileset dir="${srcdir}/gc/properties" >
+        <copy todir="${builddir}/com/grosscommerce/properties">
+            <fileset dir="${srcdir}/com/grosscommerce/properties" >
                 <include name="*.properties"/>
             </fileset>
         </copy>
@@ -30,7 +27,6 @@
             </classpath>
         </javac>
     </target>
-
     <target name="PackICEcatAPI" description="Pack ICEcat api to separate jar" depends="CompileAll">
         <echo>Packing icecat-api.jar...</echo>
         <path id="ICEcatApiPath">
@@ -38,61 +34,48 @@
                 <include name="commons-codec-1.5.jar"/>
             </fileset>
         </path>
-
         <pathconvert property="ICEcatApiPathProp" pathsep=" " dirsep="/">
             <path refid="ICEcatApiPath" />
             <map from="${libdir}/" to=""/>
             <map from="${distdir}/" to=""/>
         </pathconvert>
-
         <mkdir dir="${distdir}"/>
-
         <jar destfile="${distdir}/icecat-api-1.0.jar">
             <fileset dir="${builddir}">
-                <include name="gc/ICEcatAPI/**" />
+                <include name="com/grosscommerce/ICEcatAPI/**" />
             </fileset>
-
             <manifest>
                 <attribute name="Class-Path" value="${ICEcatApiPathProp}"/>
             </manifest>
         </jar>
-
     </target>
-
     <target name="PackAll" description="Pack all java files into separate jars" depends="PackICEcatAPI">
         <echo>Packing...</echo>
-
         <path id="GCClassPath">
             <fileset dir="${libdir}">
                 <include name="emission-framework-ws-client-1.0.jar"/>
             </fileset>
-
             <fileset dir="${distdir}">
                 <include name="icecat-api-1.0.jar"/>
             </fileset>
         </path>
-
         <pathconvert property="GCClassPathProp" pathsep=" " dirsep="/">
             <path refid="GCClassPath" />
             <map from="${libdir}/" to=""/>
             <map from="${distdir}/" to=""/>
         </pathconvert>
-
         <mkdir dir="${distdir}"/>
-
         <jar destfile="${distdir}/ice.jar">
             <fileset dir="${builddir}">
-                <exclude name="gc/ICEcatAPI/**"/>
-                <include name="gc/**" />
+                <exclude name="com/grosscommerce/ICEcatAPI/**"/>
+                <include name="com/grosscommerce/**" />
             </fileset>
-
             <manifest>
                 <attribute name="Class-Path" value="${GCClassPathProp}"/>
-                <attribute name="Main-Class" value="gc.Program"/>
+                <attribute name="Main-Class" value="com.grosscommerce.Program"/>
             </manifest>
         </jar>
     </target>
-
     <target name="CopyLibs">
         <echo>Copying libraries...</echo>
         <copy todir="${distdir}">
@@ -101,29 +84,24 @@
             </fileset>
         </copy>
     </target>
-
     <target name="BuildAll" depends="CompileAll, PackAll,CopyLibs">
         <echo>Done!</echo>
     </target>
-
     <target name="BuildICEcatAPI" depends="CompileAll, PackICEcatAPI,CopyLibs">
         <echo>Done!</echo>
     </target>
-
     <target name="CleanAll">
         <delete includeEmptyDirs="true">
             <fileset dir="${builddir}">
                 <include name="**"/>
             </fileset>
         </delete>
-
         <delete includeEmptyDirs="false">
             <fileset dir="${distdir}">
                 <include name="**/*.jar"/>
             </fileset>
         </delete>
     </target>
-
     <target name="profile" depends="BuildAll" description="Profile Project">
         <nbprofiledirect>
             <classpath>
@@ -131,30 +109,23 @@
                 <pathelement path="${main.class}"/>
             </classpath>
         </nbprofiledirect>
-
         <java classname="${main.class}" fork="true" dir="${distdir}">
             <classpath refid="DistCP"/>
             <jvmarg value="${profiler.info.jvmargs.agent}"/>
             <jvmarg value="-Xmx512M" />
         </java>
     </target>
-
     <target name="RunICEcatImporter" depends="BuildAll">
         <java classname="${main.class}" fork="true" dir="${distdir}">
             <classpath refid="DistCP"/>
             <jvmarg value="-Xmx1024M" />
         </java>
     </target>
-
-    <target name="TestAll">
-      <!--TODO: code for run tests-->
-    </target>
-
     <target name="debug-nb" depends="BuildAll">
         <nbjpdastart addressproperty="jpda.address" name="ICEcatImporterr" transport="dt_socket">
             <classpath refid="DistCP"/>
         </nbjpdastart>
-    <!-- TODO configure the main class for your project here: -->
+        <!-- TODO configure the main class for your project here: -->
         <java classname="${main.class}" fork="true" dir="${distdir}">
             <classpath refid="DistCP"/>
             <jvmarg value="-Xdebug"/>
@@ -164,5 +135,4 @@
             <jvmarg value="-Xmx1024M" />
         </java>
     </target>
-
 </project>

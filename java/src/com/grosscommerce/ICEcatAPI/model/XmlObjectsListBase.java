@@ -8,9 +8,9 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.ICEcatAPI.model;
+package com.grosscommerce.ICEcatAPI.model;
 
-import gc.ICEcatAPI.utilities.EventListenerListEx;
+import com.grosscommerce.ICEcatAPI.utilities.EventListenerListEx;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

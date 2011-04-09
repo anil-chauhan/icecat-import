@@ -8,10 +8,10 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.commandlineparser;
+package com.grosscommerce.commandlineparser;
 
-import gc.ICEcatAPI.common.Constants;
-import gc.ICEcatAPI.controller.ImportType;
+import com.grosscommerce.ICEcatAPI.common.Constants;
+import com.grosscommerce.ICEcatAPI.controller.ImportType;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;

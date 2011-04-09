@@ -8,13 +8,13 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.configfile;
+package com.grosscommerce.configfile;
 
-import gc.ICEcatAPI.controller.ImportContext;
-import gc.emission.framework.importer.Token;
-import gc.ICEcatAPI.model.Category;
-import gc.ICEcatAPI.model.Language;
-import gc.ICEcatAPI.model.Languages;
+import com.grosscommerce.ICEcatAPI.controller.ImportContext;
+import com.grosscommerce.emission.framework.importer.Token;
+import com.grosscommerce.ICEcatAPI.model.Category;
+import com.grosscommerce.ICEcatAPI.model.Language;
+import com.grosscommerce.ICEcatAPI.model.Languages;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;

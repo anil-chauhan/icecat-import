@@ -8,7 +8,7 @@
  * Copyright 2011 GrossCommerce
  */
 
-package gc.utilities;
+package com.grosscommerce.utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class LogUtility
                 file.mkdirs();
             }
 
-            Object obj = LogUtility.class.getResource("/gc/properties/logging.properties");
+            Object obj = LogUtility.class.getResource("/com/grosscommerce/properties/logging.properties");
 
             InputStream stream = ((URL)obj).openStream();
 
