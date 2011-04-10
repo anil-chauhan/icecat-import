@@ -12,6 +12,7 @@ package com.grosscommerce.ICEcat.utilities;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -27,7 +28,8 @@ import org.apache.commons.codec.binary.Base64;
  */
 public abstract class Downloader {
 
-    public static byte[] download(String urlFrom, String login, String pwd) throws Throwable {
+    public static void download(String urlFrom, String login, String pwd, OutputStream destStream) throws Exception
+    {
         try {
             HttpURLConnection uc = prepareConnection(urlFrom, login, pwd);
 
@@ -41,7 +43,7 @@ public abstract class Downloader {
                             uc.getResponseCode(), uc.getResponseMessage()
                         });
 
-                return null;
+                return;
             }
 
             BufferedInputStream is = null;
@@ -65,21 +67,9 @@ public abstract class Downloader {
                         urlFrom);
             }
 
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-
-            StreamsHelper.copy(is, os);
-
-            byte[] resultBuffer = os.toByteArray();
-            os.close();
-
-            Logger.getLogger(Downloader.class.getName()).log(
-                    Level.INFO,
-                    "Downloaded {0} byte(s)",
-                    new Object[]{
-                        resultBuffer.length
-                    });
-
-            return resultBuffer;
+            StreamsHelper.copy(is, destStream);
+            destStream.flush();
+            
         } catch (Exception ex) {
             Logger.getLogger(Downloader.class.getName()).log(Level.SEVERE,
                     "URL: " + urlFrom,
@@ -87,6 +77,21 @@ public abstract class Downloader {
 
             throw ex;
         }
+    }
+
+    public static byte[] download(String urlFrom, String login, String pwd) throws Throwable {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        download(urlFrom, login, pwd, os);
+        byte[] result = os.toByteArray();
+        os.close();
+        Logger.getLogger(Downloader.class.getName()).log(
+                    Level.INFO,
+                    "Downloaded {0} byte(s)",
+                    new Object[]{
+                        result.length
+                    });
+        
+        return result;
     }
 
     private static HttpURLConnection prepareConnection(String urlFrom, String login, String pwd)

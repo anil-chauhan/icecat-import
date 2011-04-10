@@ -16,6 +16,11 @@ import com.grosscommerce.ICEcat.model.SAXIndexFileParser;
 import com.grosscommerce.ICEcat.model.XmlObjectsListListener;
 import com.grosscommerce.ICEcat.utilities.Downloader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +42,8 @@ public class ImportController {
         this.filters.add(filter);
     }
 
-    public void doImport() throws IllegalStateException {
+    public void doImport() throws IllegalStateException, Throwable {
+        
         this.initFilters();
 
         if (this.importContext.getImportType() != ImportType.Full) {
@@ -53,20 +59,37 @@ public class ImportController {
     }
 
     private void startProcessingIndexFile() throws Throwable {
-        String indexFileURL = this.getIndexFileURL();
+        File tmpFile = downloadIndexFile();
 
-        byte[] data = Downloader.download(indexFileURL,
-                this.importContext.getUserName(),
-                this.importContext.getPassword());
+        FileInputStream is = new FileInputStream(tmpFile);
 
-        IndexFileParser parser = new SAXIndexFileParser();
-        parser.addXmlObjectsListParserListener(new IndexFilesParserListener());
+        try
+        {
+            IndexFileParser parser = new SAXIndexFileParser();
+            parser.addXmlObjectsListParserListener(new IndexFilesParserListener());
 
-        parser.parse(new ByteArrayInputStream(data));
+            parser.parse(is);
+        }
+        finally
+        {
+            is.close();
+        }
 
         Logger.getLogger(ImportController.class.getName()).info("Index file successfully parsed!");
 
         this.waitForFilters();
+    }
+
+    private File downloadIndexFile() throws IOException, Exception, FileNotFoundException
+    {
+        String indexFileURL = this.getIndexFileURL();
+        File tmpFile = File.createTempFile(Constants.TEMP_FILE_SUFIX, null);
+        tmpFile.deleteOnExit();
+        FileOutputStream os = new FileOutputStream(tmpFile);
+        Downloader.download(indexFileURL, this.importContext.getUserName(),
+                            this.importContext.getPassword(), os);
+        os.close();
+        return tmpFile;
     }
 
     private void waitForFilters() throws InterruptedException {
@@ -88,7 +111,7 @@ public class ImportController {
         return strBuilder.toString();
     }
 
-    private void initFilters() throws IllegalStateException {
+    private void initFilters() throws IllegalStateException, Throwable {
         if (this.filters.isEmpty()) {
             throw new IllegalStateException("No filters. You must register one for doing import. Use registerFilter method");
         }

@@ -10,10 +10,8 @@
 package com.grosscommerce.core;
 
 import com.emission.framework.product.IProduct;
-import com.emission.framework.product.Product_Service;
 import com.emission.framework.productcategory.IProductCategory;
 import com.emission.framework.productcategory.ProductCategory;
-import com.emission.framework.productcategory.ProductCategory_Service;
 import com.grosscommerce.ICEcat.common.Constants;
 import com.grosscommerce.ICEcat.common.QueueProcessorTask;
 import com.grosscommerce.ICEcat.controller.ImportContext;
@@ -96,26 +94,25 @@ public class ProductImporter extends ProductImporterBase {
     }
 
     @Override
-    public void init() {
+    public void init() throws Throwable {
         this.accessToken = AuthHelper.getAccessToken(this.token.getValue(),
                 this.userName,
                 this.password);
 
-        Product_Service product = new Product_Service();
-        this.productService = product.getBasicHttpBindingIProduct();
+        this.productService = EmissionFrameworkHelper.initProductService();
 
         // remove all products
-        this.productService.truncate(this.accessToken);
+        EmissionFrameworkHelper.truncateAllProducts(this.accessToken, this.productService);
 
-        ProductCategory_Service productCategory_Service = new ProductCategory_Service();
-        this.categoryService = productCategory_Service.getBasicHttpBindingIProductCategory();
+        
+        this.categoryService = EmissionFrameworkHelper.initCategoryService();
 
         // remove all categories
-        this.categoryService.truncate(this.accessToken);
+        EmissionFrameworkHelper.truncateCategories(accessToken, categoryService);
 
         // create root category
-        ProductCategory category = this.categoryService.create(
-                this.accessToken, this.token.getCatName(), 0);
+        ProductCategory category = EmissionFrameworkHelper.createProductCategory(
+                accessToken, token.getCatName(), categoryService);
 
         this.categoriesAssociations.put(this.token.getCatId(), category.getId());
 
@@ -130,7 +127,8 @@ public class ProductImporter extends ProductImporterBase {
                     products,
                     accessToken,
                     this.categoriesAssociations,
-                    productsCounter);
+                    productsCounter,
+                    this.token.getCatName());
 
             importerTask.init();
             this.tasks.add(importerTask);
@@ -191,25 +189,25 @@ public class ProductImporter extends ProductImporterBase {
         private IProduct productService;
         private IProductCategory categoryService;
         private AtomicInteger productsCounter;
+        private String name;
 
         public ProductImporterTask(CountDownLatch taskMonitor,
                 BlockingQueue<ParsedProductInfo> queue,
                 String accessToken,
                 ConcurrentHashMap<Integer, Integer> categoriesAssociations,
-                AtomicInteger productsCounter) {
+                AtomicInteger productsCounter,
+                String name) {
             super(taskMonitor, queue);
 
             this.accessToken = accessToken;
             this.categoriesAssociations = categoriesAssociations;
             this.productsCounter = productsCounter;
+            this.name = name;
         }
 
-        public void init() {
-            Product_Service product_Service = new Product_Service();
-            this.productService = product_Service.getBasicHttpBindingIProduct();
-
-            ProductCategory_Service category_Service = new ProductCategory_Service();
-            this.categoryService = category_Service.getBasicHttpBindingIProductCategory();
+        public void init() throws Throwable {
+            this.productService = EmissionFrameworkHelper.initProductService();
+            this.categoryService = EmissionFrameworkHelper.initCategoryService();
         }
 
         @Override
@@ -241,7 +239,7 @@ public class ProductImporter extends ProductImporterBase {
             this.categoryService.add(this.accessToken, p.getId(),
                     emissionFrameworkCategoryId);
             System.out.println(
-                    "Count products: " + this.productsCounter.incrementAndGet());
+                    this.name + ", count products: " + this.productsCounter.incrementAndGet());
         }
     }// </editor-fold>
 }

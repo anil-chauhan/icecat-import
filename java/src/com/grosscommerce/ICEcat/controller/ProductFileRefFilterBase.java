@@ -53,7 +53,7 @@ public abstract class ProductFileRefFilterBase {
     protected abstract ProductImporterBase getProductImporter(CountDownLatch taskMonitor,
             ArrayBlockingQueue<ParsedProductInfo> resultQueue, ImportContext importContext);
 
-    public void init() {
+    public void init() throws Throwable {
         this.productRefs.clear();
         this.tasksList.clear();
 
@@ -74,7 +74,7 @@ public abstract class ProductFileRefFilterBase {
         }
     }
 
-    private void initImporter(ArrayBlockingQueue<ParsedProductInfo> resultQueue) {
+    private void initImporter(ArrayBlockingQueue<ParsedProductInfo> resultQueue) throws Throwable {
         this.importerMonitor = new CountDownLatch(1);
         this.productImporter = this.getProductImporter(this.importerMonitor,
                 resultQueue, this.importContext);

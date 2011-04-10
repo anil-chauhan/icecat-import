@@ -26,4 +26,6 @@ public interface Constants {
      */
     public static final int THREADS_COUNT = 4;
     public static final int BLOCKING_QUEUE_CAPACITY = 100;
+
+    public static final String TEMP_FILE_SUFIX = "GC_ICEcat";
 }

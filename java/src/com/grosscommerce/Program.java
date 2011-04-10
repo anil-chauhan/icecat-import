@@ -56,7 +56,10 @@ class Program {
                     break;
             }
         } catch (Throwable ex) {
-            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(Program.class.getName()).log(
+                    Level.SEVERE,
+                    "Something bad happened",
+                    ex);
 
             CommandLineParser.printArgumentsInfo();
             return;

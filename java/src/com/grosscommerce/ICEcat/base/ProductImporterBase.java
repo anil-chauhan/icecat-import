@@ -27,5 +27,5 @@ public abstract class ProductImporterBase extends QueueProcessorTask<ParsedProdu
         this.importContext = importContext;
     }
 
-    public abstract void init();
+    public abstract void init() throws Throwable;
 }
