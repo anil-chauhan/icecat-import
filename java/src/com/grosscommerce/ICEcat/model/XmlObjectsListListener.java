@@ -15,7 +15,8 @@ import java.util.EventListener;
  *
  * @author Anykey Skovorodkin
  */
-public interface XmlObjectsListListener<T extends XmlObjectBase> extends EventListener {
-
+public interface XmlObjectsListListener<T extends XmlObjectBase> extends
+        EventListener
+{
     public void onProductFileRefParsed(T object);
 }

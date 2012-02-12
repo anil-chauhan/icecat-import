@@ -6,6 +6,7 @@
     <property name="srcdir" location="src"/>
     <property name="main.class" value="com.grosscommerce.Program"/>
     <property name="debuginfo" value="true"/>
+    <property name="docdir" location="documentation"/>
     <property name="version.num" value="0.1.0.0"/>
     <path id="DistCP">
         <fileset dir="${distdir}">
@@ -29,6 +30,9 @@
         </javac>
     </target>
     <target name="PackICEcatAPI" description="Pack ICEcat api to separate jar" depends="CompileAll">
+        
+        <mkdir dir="${distdir}"/>
+        
         <echo>Packing icecat-api.jar...</echo>
         <path id="ICEcatApiPath">
             <fileset dir="${libdir}">
@@ -40,43 +44,43 @@
             <map from="${libdir}/" to=""/>
             <map from="${distdir}/" to=""/>
         </pathconvert>
-        <mkdir dir="${distdir}"/>
+        
         <jar destfile="${distdir}/icecat-api-1.0.jar">
             <fileset dir="${builddir}">
-                <include name="com/grosscommerce/ICEcatAPI/**" />
+                <include name="com/grosscommerce/**" />
+                <exclude name="com/grosscommerce/*.class" />
             </fileset>
             <manifest>
+                <attribute name="ICECat-importer-version" value="${version.num}"/>
                 <attribute name="Class-Path" value="${ICEcatApiPathProp}"/>
             </manifest>
         </jar>
-    </target>
-    <target name="PackAll" description="Pack all java files into separate jars" depends="PackICEcatAPI">
-        <echo>Packing...</echo>
-        <path id="GCClassPath">
-            <fileset dir="${libdir}">
-                <include name="emission-framework-ws-client-1.0.jar"/>
-            </fileset>
-            <fileset dir="${distdir}">
-                <include name="icecat-api-1.0.jar"/>
-            </fileset>
+        
+        
+        <echo>Packing test.jar...</echo>
+        <path id="TestPath">
+            <pathelement location="${distdir}/icecat-api-1.0.jar"/>
         </path>
-        <pathconvert property="GCClassPathProp" pathsep=" " dirsep="/">
-            <path refid="GCClassPath" />
+        <pathconvert property="TestPathProp" pathsep=" " dirsep="/">
+            <path refid="TestPath" />
             <map from="${libdir}/" to=""/>
             <map from="${distdir}/" to=""/>
         </pathconvert>
-        <mkdir dir="${distdir}"/>
-        <jar destfile="${distdir}/icecat-import.jar">
+        
+        <jar destfile="${distdir}/test.jar">
             <fileset dir="${builddir}">
-                <exclude name="com/grosscommerce/ICEcatAPI/**"/>
-                <include name="com/grosscommerce/**" />
+                <include name="com/grosscommerce/*.class" />
             </fileset>
             <manifest>
-                <attribute name="Class-Path" value="${GCClassPathProp}"/>
+                <attribute name="ICECat-importer-version" value="${version.num}"/>
+                <attribute name="Class-Path" value="${TestPathProp}"/>
                 <attribute name="Main-Class" value="com.grosscommerce.Program"/>
-                <attribute name="Implementation-Version" value="${version.num}"/>
             </manifest>
         </jar>
+        
+    </target>
+    <target name="PackAll" description="Pack all java files into separate jars" depends="PackICEcatAPI">
+        <echo>Packing...</echo>
     </target>
     <target name="CopyLibs">
         <echo>Copying libraries...</echo>
@@ -107,7 +111,7 @@
     <target name="Profile" depends="BuildAll" description="Profile Project">
         <nbprofiledirect>
             <classpath>
-                <pathelement location="${distdir}/icecat-import.jar"/>
+                <pathelement location="${distdir}/test.jar"/>
                 <pathelement path="${main.class}"/>
             </classpath>
         </nbprofiledirect>
@@ -136,4 +140,17 @@
             <jvmarg value="-Xmx1024M" />
         </java>
     </target>
+    
+    <target name="GenerateDocAll">
+      <!--Re-create doc. directory-->
+     <delete dir="${docdir}"/>
+     <mkdir dir="${docdir}"/>
+     <javadoc sourcepath="${srcdir}" destdir="${docdir}">
+         <classpath>
+             <fileset dir="${libdir}">
+                 <include name="*.jar"/>
+             </fileset>
+         </classpath>
+     </javadoc>
+  </target>
 </project>

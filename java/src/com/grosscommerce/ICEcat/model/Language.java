@@ -18,8 +18,8 @@ import org.w3c.dom.Element;
  * Used for storing information about language.
  * @author Anykey Skovorodkin
  */
-public class Language extends XmlObjectBase {
-
+public class Language extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "Language";
     public static final String CODE_PARAM = "Code";
     public static final String SHORTCODE_PARAM = "ShortCode";
@@ -35,48 +35,58 @@ public class Language extends XmlObjectBase {
     @XmlLocalizedFieldAnnotation(nodeName = NAME_PROP)
     private LocalizedValue name = new LocalizedValue();
 
-    public Language() {
+    public Language()
+    {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public String getCode() {
+    public String getCode()
+    {
         return code;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public LocalizedValue getName() {
+    public LocalizedValue getName()
+    {
         return name;
     }
 
-    public String getShortCode() {
+    public String getShortCode()
+    {
         return shortCode;
     }
 
-    public int getSid() {
+    public int getSid()
+    {
         return sid;
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
     }
 
     // </editor-fold>
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Language{" + "code=" + code + "id=" + id + "shortCode=" + shortCode + '}';
     }
 }

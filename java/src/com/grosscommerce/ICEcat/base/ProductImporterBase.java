@@ -16,13 +16,18 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Base class for all product importers.
+ * Product importer - it's object, which can save parsed product to somewhere (for example in data base or xml file etc...)
+ * 
  * @author Anykey Skovorodkin
  */
-public abstract class ProductImporterBase extends QueueProcessorTask<ParsedProductInfo> {
-
+public abstract class ProductImporterBase extends QueueProcessorTask<ParsedProductInfo>
+{
     protected ImportContext importContext;
 
-    public ProductImporterBase(CountDownLatch taskMonitor, BlockingQueue<ParsedProductInfo> queue, ImportContext importContext) {
+    public ProductImporterBase(CountDownLatch taskMonitor,
+                               BlockingQueue<ParsedProductInfo> queue,
+                               ImportContext importContext)
+    {
         super(taskMonitor, queue);
         this.importContext = importContext;
     }

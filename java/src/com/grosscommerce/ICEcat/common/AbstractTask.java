@@ -18,33 +18,42 @@ import java.util.logging.Logger;
  * Used as base class for task, wich can report about finishing.
  * @author Anykey Skovorodkin
  */
-public abstract class AbstractTask implements Runnable {
-
+public abstract class AbstractTask implements Runnable
+{
     private CountDownLatch taskMonitor;
     private AtomicBoolean stopped = new AtomicBoolean(true);
 
-    public AbstractTask(CountDownLatch taskMonitor) {
+    public AbstractTask(CountDownLatch taskMonitor)
+    {
         this.taskMonitor = taskMonitor;
     }
 
-    public boolean isStopped() {
+    public boolean isStopped()
+    {
         return this.stopped.get();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Runnable implementation">
     @Override
-    public void run() {
-        Logger.getLogger(AbstractTask.class.getName()).log(Level.INFO, "Task started, hash: {0}", this.hashCode());
+    public void run()
+    {
+        Logger.getLogger(AbstractTask.class.getName()).log(Level.INFO,
+                                                           "Task started, hash: {0}",
+                                                           this.hashCode());
 
         this.stopped.lazySet(false);
 
-        try {
+        try
+        {
             this.runTask();
-        } finally {
+        }
+        finally
+        {
             this.taskMonitor.countDown();
 
             Logger.getLogger(AbstractTask.class.getName()).log(Level.INFO,
-                    "Task finished, hash: {0}", this.hashCode());
+                                                               "Task finished, hash: {0}",
+                                                               this.hashCode());
 
             this.stopped.lazySet(true);
         }

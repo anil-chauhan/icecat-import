@@ -19,8 +19,8 @@ import org.w3c.dom.Element;
  * Used for storing one category.
  * @author Anykey Skovorodkin
  */
-public class Category extends XmlObjectBase {
-
+public class Category extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "Category";
     public static final String PARENT_CATEGORY_NODE = "ParentCategory";
     @XmlFieldAnnotation(propertyName = ID_PROP, valueType = ValueTypeEnum.Int)
@@ -53,95 +53,117 @@ public class Category extends XmlObjectBase {
     private int level = -1;
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public String getLowPic() {
+    public String getLowPic()
+    {
         return lowPic;
     }
 
-    public void setLowPic(String lowPic) {
+    public void setLowPic(String lowPic)
+    {
         this.lowPic = lowPic;
     }
 
-    public int getScore() {
+    public int getScore()
+    {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(int score)
+    {
         this.score = score;
     }
 
-    public boolean isSearchable() {
+    public boolean isSearchable()
+    {
         return searchable;
     }
 
-    public void setSearchable(boolean searchable) {
+    public void setSearchable(boolean searchable)
+    {
         this.searchable = searchable;
     }
 
-    public String getThumbnailPic() {
+    public String getThumbnailPic()
+    {
         return thumbnailPic;
     }
 
-    public void setThumbnailPic(String thumbnailPic) {
+    public void setThumbnailPic(String thumbnailPic)
+    {
         this.thumbnailPic = thumbnailPic;
     }
 
-    public String getUncatid() {
+    public String getUncatid()
+    {
         return uncatid;
     }
 
-    public void setUncatid(String uncatid) {
+    public void setUncatid(String uncatid)
+    {
         this.uncatid = uncatid;
     }
 
-    public boolean isVisible() {
+    public boolean isVisible()
+    {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(boolean visible)
+    {
         this.visible = visible;
     }
 
-    public String getDescription(int langId) {
+    public String getDescription(int langId)
+    {
         return this.description.getValue(langId);
     }
 
-    public String getName(int langId) {
+    public String getName(int langId)
+    {
         return this.name.getValue(langId);
     }
 
-    public int getParentCategoryId() {
+    public int getParentCategoryId()
+    {
         return this.parentCategoryId;
     }
 
-    public int getLevel() {
+    public int getLevel()
+    {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level)
+    {
         this.level = level;
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         Element parentCategoryNode = XmlUtil.selectSingleElement(
                 thisObjectElement, PARENT_CATEGORY_NODE);
 
-        if (parentCategoryNode != null) {
+        if (parentCategoryNode != null)
+        {
             this.parentCategoryId = XmlUtil.selectIntAttribute(
                     parentCategoryNode, ID_PROP);
         }
@@ -150,13 +172,15 @@ public class Category extends XmlObjectBase {
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // </editor-fold>
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Category{"
                 + "id=" + id
                 + " parentId=" + parentCategoryId

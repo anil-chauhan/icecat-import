@@ -19,8 +19,8 @@ import org.w3c.dom.Element;
  *
  * @author Anykey Skovorodkin
  */
-public class ProductFeature extends XmlObjectBase {
-
+public class ProductFeature extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "ProductFeature";
     public static final String LOCALIZED_PROP = "Localized";
     public static final String VALUE_PROP = "Value";
@@ -36,37 +36,46 @@ public class ProductFeature extends XmlObjectBase {
     private String presentationValue;
     private Feature feature = new Feature();
 
-    public ProductFeature() {
+    public ProductFeature()
+    {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getCategoryFeatureGroupId() {
+    public int getCategoryFeatureGroupId()
+    {
         return categoryFeatureGroupId;
     }
 
-    public boolean isLocalized() {
+    public boolean isLocalized()
+    {
         return localized;
     }
 
-    public String getPresentationValue() {
+    public String getPresentationValue()
+    {
         return presentationValue;
     }
 
-    public String getValue() {
+    public String getValue()
+    {
         return value;
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
-        Element elem = XmlUtil.selectSingleElement(thisObjectElement, Feature.ROOT_NODE_NAME);
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
+        Element elem = XmlUtil.selectSingleElement(thisObjectElement,
+                                                   Feature.ROOT_NODE_NAME);
 
-        if (elem == null) {
+        if (elem == null)
+        {
             Logger.getLogger(ProductFeature.class.getName()).severe(
                     "Feature is not found");
 
@@ -77,14 +86,16 @@ public class ProductFeature extends XmlObjectBase {
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="overrides">
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "ProductFeature{" + "feature=" + feature + "presentationValue=" + presentationValue + '}';
     }// </editor-fold>
 }

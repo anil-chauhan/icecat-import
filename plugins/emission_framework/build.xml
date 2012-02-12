@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<project name="emission framework plugin" default="dist" basedir=".">
+<property name="builddir" location="classes"/>
+<property name="libdir" location="lib"/>
+<property name="distdir" location="packages"/>
+<property name="srcdir" location="src"/>
+<property name="docdir" location="documentation"/>
+<property name="resdir" location="resources"/>
+<property name="main.class" value="com.grosscommerce.Program"/>
+<property name="debuginfo" value="true"/>
+
+<path id="DistCP">
+    <!-- TODO configure the runtime classpath for your project here: -->
+    <fileset dir="${distdir}">
+        <include name="*.jar"/>
+    </fileset>
+</path>
+
+ <target name="CompileAll" description="Compile all java code into .class files">
+     <echo>Compiling...</echo>
+     <mkdir dir="${builddir}"/>
+     <javac srcdir="${srcdir}" destdir="${builddir}" debug="${debuginfo}" includeAntRuntime="false">
+         <classpath>
+             <fileset dir="${libdir}">
+                 <include name="*.jar"/>
+             </fileset>
+         </classpath>
+     </javac>
+ </target>
+
+<target name="PackAll" description="Pack all java files into separate jars" depends="CompileAll">
+    <echo>Packing...</echo>
+    
+    <path id="ClassPath">
+        <fileset dir="${libdir}">
+             <include name="*.jar"/>
+         </fileset>
+    </path>
+    
+    <pathconvert property="ClassPathProp" pathsep=" " dirsep="/">
+            <path refid="ClassPath" />
+            <map from="${libdir}/" to=""/>
+            <map from="${distdir}/" to=""/>
+    </pathconvert>
+
+    <mkdir dir="${distdir}"/>
+
+    <jar destfile="${distdir}/emission.jar" duplicate="fail">
+        <fileset  dir="${builddir}" >
+            <include name="com/grosscommerce/**" />
+            <exclude name="com/grosscommerce/**/_svn" />
+            <exclude name="com/grosscommerce/**/_svn/**" />
+        </fileset>
+        
+        <manifest>
+            <attribute name="Class-Path" value="${ClassPathProp}" />
+            <attribute name="Main-Class" value="com.grosscommerce.Program" />
+        </manifest>
+    </jar>
+</target>
+
+<target name="CopyLibs">
+    <echo>Copying libraries...</echo>
+    <copy todir="${distdir}">
+        <fileset dir="${libdir}">
+            <include name="*.jar"/>
+        </fileset>
+    </copy>
+</target>
+
+  <target name="BuildAll" depends="CompileAll, PackAll,CopyLibs">
+      <echo>Done!</echo>
+  </target>
+
+  <target name="CleanAll">
+      <delete includeEmptyDirs="true">
+         <fileset dir="${builddir}">
+             <include name="**"/>             
+         </fileset>
+      </delete>
+
+      <delete includeEmptyDirs="false">
+         <fileset dir="${distdir}">
+             <include name="**/*.jar"/>
+         </fileset>
+      </delete>
+  </target>
+
+  <target name="profile" depends="BuildAll" description="Profile Project">
+      <nbprofiledirect>
+        <classpath>
+          <pathelement location="${distdir}/emission.jar"/>
+          <pathelement path="${main.class}"/>
+        </classpath>
+      </nbprofiledirect>
+
+      <java classname="${main.class}" fork="true" dir="${distdir}">
+          <classpath refid="DistCP"/>
+          <jvmarg value="${profiler.info.jvmargs.agent}"/>
+          <jvmarg value="-Xmx768M" />
+      </java>
+  </target>
+
+  <target name="Run" depends="BuildAll">
+      <java classname="${main.class}" fork="true" dir="${distdir}">
+            <classpath refid="DistCP"/>
+      <jvmarg value="-Xmx768M" />
+      </java>
+  </target>
+
+    <target name="Debug" depends="BuildAll">
+        <nbjpdastart addressproperty="jpda.address" name="Debug" transport="dt_socket">
+            <classpath refid="DistCP"/>
+        </nbjpdastart>
+        <!-- TODO configure the main class for your project here: -->
+        <java classname="${main.class}" fork="true" dir="${distdir}">
+            <classpath refid="DistCP"/>
+            <jvmarg value="-Xdebug"/>
+             <jvmarg value="-Xnoagent"/>
+             <jvmarg value="-Djava.compiler=none"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+            <jvmarg value="-Xmx768M" />
+        </java>
+    </target>
+    
+  <target name="GenerateDocAll">
+      <!--Re-create doc. directory-->
+     <delete dir="${docdir}"/>
+     <mkdir dir="${docdir}"/>
+     <javadoc sourcepath="${srcdir}" destdir="${docdir}">
+         <classpath>
+             <fileset dir="${libdir}">
+                 <include name="*.jar"/>
+             </fileset>
+         </classpath>
+     </javadoc>
+  </target>
+
+  <target name="TestAll">
+      <!--TODO: code for run tests-->
+  </target>
+
+ <target name="debug-nb" depends="BuildAll">
+    <nbjpdastart addressproperty="jpda.address" name="Debug" transport="dt_socket">
+        <classpath refid="DistCP"/>
+    </nbjpdastart>
+    <!-- TODO configure the main class for your project here: -->
+    <java classname="${main.class}" fork="true" dir="${distdir}">
+        <classpath refid="DistCP"/>
+        <jvmarg value="-Xdebug"/>
+         <jvmarg value="-Xnoagent"/>
+         <jvmarg value="-Djava.compiler=none"/>
+        <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        <jvmarg value="-Xmx768M" />
+    </java>
+  </target> 
+</project>

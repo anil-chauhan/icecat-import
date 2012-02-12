@@ -15,7 +15,6 @@ import com.grosscommerce.ICEcat.model.ProductFileRef;
 import com.grosscommerce.ICEcat.model.SAXIndexFileParser;
 import com.grosscommerce.ICEcat.model.XmlObjectsListListener;
 import com.grosscommerce.ICEcat.utilities.Downloader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,38 +26,53 @@ import java.util.logging.Logger;
 
 /**
  * Used for controlling parsing process.
+ * For using ImportController object you need:
+ *  1. Create and Initialize(by using <code>ImportContext.init</code> method) <code>ImportContext</code> object.
+ *  2. Create one or more filter objects, which extended from ProductFileRefFilterBase
+ *  3. Register your filters by using <code>ImportController.registerFilter</code> method
+ *  4. If steps 1-3 done, use <code>ImportController.doImport</code> method for importing ICECat catalog
+ * 
  * @author Anykey Skovorodkin
  */
-public class ImportController {
-
+public class ImportController
+{
     private ImportContext importContext;
     private ArrayList<ProductFileRefFilterBase> filters = new ArrayList<ProductFileRefFilterBase>();
 
-    public ImportController(ImportContext context) {
+    public ImportController(ImportContext context)
+    {
         this.importContext = context;
     }
 
-    public void registerFilter(ProductFileRefFilterBase filter) {
+    public void registerFilter(ProductFileRefFilterBase filter)
+    {
         this.filters.add(filter);
     }
 
-    public void doImport() throws IllegalStateException, Throwable {
-        
+    public void doImport() throws IllegalStateException, Throwable
+    {
+
         this.initFilters();
 
-        if (this.importContext.getImportType() != ImportType.Full) {
-            throw new IllegalStateException(this.importContext.getImportType() + " is not supported yet!");
+        if (this.importContext.getImportType() != ImportType.Full)
+        {
+            throw new IllegalStateException(
+                    this.importContext.getImportType() + " is not supported yet!");
         }
 
-        try {
+        try
+        {
             this.startProcessingIndexFile();
-        } catch (Throwable ex) {
+        }
+        catch (Throwable ex)
+        {
             Logger.getLogger(ImportController.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                   null, ex);
         }
     }
 
-    private void startProcessingIndexFile() throws Throwable {
+    private void startProcessingIndexFile() throws Throwable
+    {
         File tmpFile = downloadIndexFile();
 
         FileInputStream is = new FileInputStream(tmpFile);
@@ -66,7 +80,8 @@ public class ImportController {
         try
         {
             IndexFileParser parser = new SAXIndexFileParser();
-            parser.addXmlObjectsListParserListener(new IndexFilesParserListener());
+            parser.addXmlObjectsListParserListener(
+                    new IndexFilesParserListener());
 
             parser.parse(is);
         }
@@ -75,12 +90,14 @@ public class ImportController {
             is.close();
         }
 
-        Logger.getLogger(ImportController.class.getName()).info("Index file successfully parsed!");
+        Logger.getLogger(ImportController.class.getName()).info(
+                "Index file successfully parsed!");
 
         this.waitForFilters();
     }
 
-    private File downloadIndexFile() throws IOException, Exception, FileNotFoundException
+    private File downloadIndexFile() throws IOException, Exception,
+                                            FileNotFoundException
     {
         String indexFileURL = this.getIndexFileURL();
         File tmpFile = File.createTempFile(Constants.TEMP_FILE_SUFIX, null);
@@ -92,15 +109,19 @@ public class ImportController {
         return tmpFile;
     }
 
-    private void waitForFilters() throws InterruptedException {
-        Logger.getLogger(ImportController.class.getName()).info("Wait for finishing");
+    private void waitForFilters() throws InterruptedException
+    {
+        Logger.getLogger(ImportController.class.getName()).info(
+                "Wait for finishing");
 
-        for (ProductFileRefFilterBase filter : this.filters) {
+        for (ProductFileRefFilterBase filter : this.filters)
+        {
             filter.waitForExit();
         }
     }
 
-    private String getIndexFileURL() {
+    private String getIndexFileURL()
+    {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(Constants.FREE_XML_BASE_URL);
         strBuilder.append(this.importContext.getImportLanguage().getShortCode());
@@ -111,19 +132,27 @@ public class ImportController {
         return strBuilder.toString();
     }
 
-    private void initFilters() throws IllegalStateException, Throwable {
-        if (this.filters.isEmpty()) {
-            throw new IllegalStateException("No filters. You must register one for doing import. Use registerFilter method");
+    private void initFilters() throws IllegalStateException, Throwable
+    {
+        if (this.filters.isEmpty())
+        {
+            throw new IllegalStateException(
+                    "No filters. You must register one for doing import. Use registerFilter method");
         }
 
-        for (ProductFileRefFilterBase filter : this.filters) {
+        for (ProductFileRefFilterBase filter : this.filters)
+        {
             filter.init();
         }
     }
 
-    protected void acceptProductFileRef(ProductFileRef productFileRef) throws InterruptedException {
-        for (ProductFileRefFilterBase filter : this.filters) {
-            if (filter.accept(productFileRef)) {
+    protected void acceptProductFileRef(ProductFileRef productFileRef) throws
+            InterruptedException
+    {
+        for (ProductFileRefFilterBase filter : this.filters)
+        {
+            if (filter.accept(productFileRef))
+            {
                 break;
             }
         }
@@ -133,13 +162,17 @@ public class ImportController {
 
     // <editor-fold defaultstate="collapsed" desc="IndexFilesParserListener">
     private class IndexFilesParserListener implements
-            XmlObjectsListListener<ProductFileRef> {
-
+            XmlObjectsListListener<ProductFileRef>
+    {
         @Override
-        public void onProductFileRefParsed(ProductFileRef object) {
-            try {
+        public void onProductFileRefParsed(ProductFileRef object)
+        {
+            try
+            {
                 acceptProductFileRef(object);
-            } catch (InterruptedException ex) {
+            }
+            catch (InterruptedException ex)
+            {
                 Logger.getLogger(ImportController.class.getName()).log(
                         Level.SEVERE,
                         null, ex);

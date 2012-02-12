@@ -18,10 +18,10 @@ import com.grosscommerce.ICEcat.model.ProductFileRef;
  * Used by ProductImporter for getting information about parsed product.
  * @author Anykey Skovorodkin
  */
-public class ParsedProductInfo {
-
-    public enum ParsingStatus {
-
+public class ParsedProductInfo
+{
+    public enum ParsingStatus
+    {
         Success,
         Failure
     }
@@ -32,48 +32,59 @@ public class ParsedProductInfo {
     private ImportType importType;
     private Language language;
 
-    public ParsedProductInfo(ProductFileRef productFileRef, Language language) {
+    public ParsedProductInfo(ProductFileRef productFileRef, Language language)
+    {
         this.productFileRef = productFileRef;
         this.language = language;
     }
 
-    public Throwable getExeption() {
+    public Throwable getExeption()
+    {
         return exeption;
     }
 
-    public ParsingStatus getParsingStatus() {
+    public ParsingStatus getParsingStatus()
+    {
         return parsingStatus;
     }
 
-    public Product getProduct() {
+    public Product getProduct()
+    {
         return product;
     }
 
-    public ProductFileRef getProductFileRef() {
+    public ProductFileRef getProductFileRef()
+    {
         return productFileRef;
     }
 
-    public void setExeption(Throwable exeption) {
+    public void setExeption(Throwable exeption)
+    {
         this.exeption = exeption;
     }
 
-    public void setParsingStatus(ParsingStatus parsingStatus) {
+    public void setParsingStatus(ParsingStatus parsingStatus)
+    {
         this.parsingStatus = parsingStatus;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product product)
+    {
         this.product = product;
     }
 
-    public ImportType getImportType() {
+    public ImportType getImportType()
+    {
         return importType;
     }
 
-    public void setImportType(ImportType importType) {
+    public void setImportType(ImportType importType)
+    {
         this.importType = importType;
     }
 
-    public Language getLanguage() {
+    public Language getLanguage()
+    {
         return language;
     }
 }

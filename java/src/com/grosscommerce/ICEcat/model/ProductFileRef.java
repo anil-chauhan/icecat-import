@@ -26,8 +26,8 @@ import org.xml.sax.Attributes;
  * Used as object, which present file object in all Index Files.
  * @author Anykey Skovorodkin
  */
-public class ProductFileRef extends XmlObjectBase {
-
+public class ProductFileRef extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "file";
     /**
      * Relative path to document, which describe product.
@@ -100,68 +100,84 @@ public class ProductFileRef extends XmlObjectBase {
     @XmlFieldAnnotation(propertyName = HIGHPICSIZE_PROP, valueType = ValueTypeEnum.Int)
     private int highPicSize;
 
-    public ProductFileRef() {
+    public ProductFileRef()
+    {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public int getCatId() {
+    public int getCatId()
+    {
         return catId;
     }
 
-    public int getHighPicHeight() {
+    public int getHighPicHeight()
+    {
         return highPicHeight;
     }
 
-    public int getHighPicSize() {
+    public int getHighPicSize()
+    {
         return highPicSize;
     }
 
-    public String getHighPicUrl() {
+    public String getHighPicUrl()
+    {
         return highPicUrl;
     }
 
-    public int getHighPicWidth() {
+    public int getHighPicWidth()
+    {
         return highPicWidth;
     }
 
-    public String getModelName() {
+    public String getModelName()
+    {
         return modelName;
     }
 
-    public boolean isOnMarket() {
+    public boolean isOnMarket()
+    {
         return onMarket;
     }
 
-    public String getPath() {
+    public String getPath()
+    {
         return path;
     }
 
-    public String getProdId() {
+    public String getProdId()
+    {
         return prodId;
     }
 
-    public int getProductId() {
+    public int getProductId()
+    {
         return productId;
     }
 
-    public int getProductView() {
+    public int getProductView()
+    {
         return productView;
     }
 
-    public String getQuality() {
+    public String getQuality()
+    {
         return quality;
     }
 
-    public int getSupplierId() {
+    public int getSupplierId()
+    {
         return supplierId;
     }
 
-    public Date getUpdated() {
+    public Date getUpdated()
+    {
         return updated;
     }// </editor-fold>
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "ProductFileRef{"
                 + "path=" + path
                 + ", productId=" + productId
@@ -181,25 +197,35 @@ public class ProductFileRef extends XmlObjectBase {
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
-    protected Object getValueFromAttributes(Attributes attributes, XmlFieldAnnotation annotation) throws NumberFormatException {
+    protected Object getValueFromAttributes(Attributes attributes,
+                                            XmlFieldAnnotation annotation)
+            throws NumberFormatException
+    {
         String value = attributes.getValue(annotation.propertyName());
         Object objValue = null;
-        if (value != null && !value.isEmpty()) {
-            switch (annotation.valueType()) {
+        if (value != null && !value.isEmpty())
+        {
+            switch (annotation.valueType())
+            {
                 case Boolean:
                     objValue = Boolean.valueOf(value);
                     break;
                 case DateTime:
-                    try {
+                    try
+                    {
                         objValue = DateUtil.stringToDate(value);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                                null,
-                                ex);
+                    }
+                    catch (ParseException ex)
+                    {
+                        Logger.getLogger(ProductFileRef.class.getName()).log(
+                                Level.SEVERE,
+                                                                             null,
+                                                                             ex);
                     }
                     break;
                 case Int:
@@ -214,26 +240,33 @@ public class ProductFileRef extends XmlObjectBase {
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
     }
 
     // </editor-fold>
-    public void loadFromAttributes(Attributes attributes) {
+    public void loadFromAttributes(Attributes attributes)
+    {
         List<Field> fields = this.getAllFields();
 
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(XmlFieldAnnotation.class)) {
+        for (Field field : fields)
+        {
+            if (field.isAnnotationPresent(XmlFieldAnnotation.class))
+            {
                 XmlFieldAnnotation annotation = field.getAnnotation(
                         XmlFieldAnnotation.class);
-                if (annotation.nodeType() == XmlNodeType.XmlAttribute) {
+                if (annotation.nodeType() == XmlNodeType.XmlAttribute)
+                {
                     Object objValue = this.getValueFromAttributes(attributes,
-                            annotation);
-                    if (objValue != null) {
+                                                                  annotation);
+                    if (objValue != null)
+                    {
                         this.setFieldValue(field, objValue);
                     }
                 }
@@ -241,24 +274,33 @@ public class ProductFileRef extends XmlObjectBase {
         }
     }
 
-    protected void setFieldValue(Field field, Object objValue) throws SecurityException {
+    protected void setFieldValue(Field field, Object objValue) throws
+            SecurityException
+    {
         boolean restoreAccessible = false;
-        if (!field.isAccessible()) {
+        if (!field.isAccessible())
+        {
             field.setAccessible(true);
             restoreAccessible = true;
         }
 
-        try {
+        try
+        {
             field.set(this, objValue);
-        } catch (IllegalArgumentException ex) {
+        }
+        catch (IllegalArgumentException ex)
+        {
             Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        } catch (IllegalAccessException ex) {
+                                                                 null, ex);
+        }
+        catch (IllegalAccessException ex)
+        {
             Logger.getLogger(ProductFileRef.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                 null, ex);
         }
 
-        if (restoreAccessible) {
+        if (restoreAccessible)
+        {
             field.setAccessible(false);
         }
     }

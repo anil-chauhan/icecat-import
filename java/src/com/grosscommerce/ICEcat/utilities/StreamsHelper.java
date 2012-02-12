@@ -17,16 +17,20 @@ import java.io.OutputStream;
  * Used for working with streams.
  * @author Anykey Skovorodkin
  */
-public abstract class StreamsHelper {
-
-    public static void copy(InputStream is, OutputStream os) throws IOException {
+public abstract class StreamsHelper
+{
+    public static void copy(InputStream is, OutputStream os) throws IOException
+    {
         copy(is, os, 1048576); // 1 mb buffer
     }
 
-    public static void copy(InputStream is, OutputStream os, int bufferSize) throws IOException {
+    public static void copy(InputStream is, OutputStream os, int bufferSize)
+            throws IOException
+    {
         int len = 0;
         byte[] buffer = new byte[bufferSize];
-        while ((len = is.read(buffer)) > 0) {
+        while ((len = is.read(buffer)) > 0)
+        {
             os.write(buffer, 0, len);
         }
     }

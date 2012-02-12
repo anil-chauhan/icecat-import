@@ -18,8 +18,8 @@ import org.w3c.dom.Element;
  * Product's summary description.
  * @author Anykey Skovorodkin
  */
-public class SummaryDescription extends XmlObjectBase {
-
+public class SummaryDescription extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "SummaryDescription";
     public static final String LONG_SUMMARY_DESCRIPTION = "LongSummaryDescription";
     public static final String SHORT_SUMMARY_DESCRIPTION = "ShortSummaryDescription";
@@ -34,46 +34,55 @@ public class SummaryDescription extends XmlObjectBase {
     private HashMap<Integer, String> longSummaryDescription =
             new HashMap<Integer, String>();
 
-    public SummaryDescription() {
+    public SummaryDescription()
+    {
     }
 
-    public String getLongDescription(int langId) {
+    public String getLongDescription(int langId)
+    {
         return this.longSummaryDescription.get(langId);
     }
 
-    public String getShortDescription(int langId) {
+    public String getShortDescription(int langId)
+    {
         return this.shortSummaryDescription.get(langId);
     }
 
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase implementation">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         // parse short summary descriptions
         List<Element> elements = XmlUtil.selectElementsByName(thisObjectElement,
-                SHORT_SUMMARY_DESCRIPTION);
+                                                              SHORT_SUMMARY_DESCRIPTION);
         this.parseDescriptions(elements, this.shortSummaryDescription);
 
         // parse long summary description
         elements = XmlUtil.selectElementsByName(thisObjectElement,
-                LONG_SUMMARY_DESCRIPTION);
+                                                LONG_SUMMARY_DESCRIPTION);
         this.parseDescriptions(elements, this.longSummaryDescription);
 
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // </editor-fold>
-    private void parseDescriptions(List<Element> elements, HashMap<Integer, String> summaryDescription) {
-        for (Element elem : elements) {
+    private void parseDescriptions(List<Element> elements,
+                                   HashMap<Integer, String> summaryDescription)
+    {
+        for (Element elem : elements)
+        {
             int langId = XmlUtil.selectIntAttribute(elem, LANGID_PROP);
             String value = elem.getTextContent();
 

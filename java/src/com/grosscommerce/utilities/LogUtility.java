@@ -18,33 +18,46 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- *
+ * Used for installing our logging properties.
  * @author Anykey Skovorodkin
  */
-public class LogUtility {
-
+public class LogUtility
+{
     private static final String logsDirName = "Logs";
 
-    public static void initLogging() {
-        try {
+    public static void initLogging()
+    {
+        try
+        {
             // create Logs dir
             File file = new File(logsDirName);
-            if (!file.exists()) {
+            if (!file.exists())
+            {
                 file.mkdirs();
             }
 
-            Object obj = LogUtility.class.getResource("/com/grosscommerce/properties/logging.properties");
+            Object obj = LogUtility.class.getResource(
+                    "/com/grosscommerce/properties/logging.properties");
 
             InputStream stream = ((URL) obj).openStream();
 
             LogManager.getLogManager().readConfiguration(stream);
             stream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Throwable ex) {
-            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null,
+                                                             ex);
+        }
+        catch (SecurityException ex)
+        {
+            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null,
+                                                             ex);
+        }
+        catch (Throwable ex)
+        {
+            Logger.getLogger(LogUtility.class.getName()).log(Level.SEVERE, null,
+                                                             ex);
         }
     }
 }

@@ -21,15 +21,16 @@ import org.w3c.dom.NodeList;
  * Base class for all xml file parsers
  * @author Anykey Skovorodkin
  */
-public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObjectBase {
-
+public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObjectBase
+{
     private EventListenerListEx eventsList = new EventListenerListEx();
     /**
      * Stores count of parsed files.
      */
     private int countParsedFiles = 0;
 
-    public int getCountParsedFiles() {
+    public int getCountParsedFiles()
+    {
         return countParsedFiles;
     }
 
@@ -39,7 +40,8 @@ public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObj
 
     public abstract T[] getAll();
 
-    protected void processParsedElement(T obj) {
+    protected void processParsedElement(T obj)
+    {
         this.saveObject(obj);
         this.fireObjectParsed(obj);
     }
@@ -47,19 +49,23 @@ public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObj
     protected abstract void saveObject(T object);
 
     // <editor-fold defaultstate="collapsed" desc="Work with listeners">
-    public void addXmlObjectsListParserListener(XmlObjectsListListener<T> l) {
+    public void addXmlObjectsListParserListener(XmlObjectsListListener<T> l)
+    {
         this.eventsList.addListener(XmlObjectsListListener.class, l);
     }
 
-    public void removeXmlObjectsListParserListener(XmlObjectsListListener<T> l) {
+    public void removeXmlObjectsListParserListener(XmlObjectsListListener<T> l)
+    {
         this.eventsList.removeListener(XmlObjectsListListener.class, l);
     }
 
-    public void fireObjectParsed(T object) {
+    public void fireObjectParsed(T object)
+    {
         List<XmlObjectsListListener> listeners =
                 this.eventsList.getListeners(XmlObjectsListListener.class);
 
-        for (XmlObjectsListListener l : listeners) {
+        for (XmlObjectsListListener l : listeners)
+        {
             l.onProductFileRefParsed(object);
         }
     }
@@ -67,25 +73,33 @@ public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObj
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         this.countParsedFiles = 0;
 
-        NodeList list = thisObjectElement.getElementsByTagName(this.getChildNodesName());
+        NodeList list = thisObjectElement.getElementsByTagName(this.
+                getChildNodesName());
 
         int size = list.getLength();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             Node node = list.item(i);
 
-            if (node instanceof Element) {
-                try {
+            if (node instanceof Element)
+            {
+                try
+                {
                     T obj = this.loadFromElement((Element) node);
 
-                    if (obj != null) {
+                    if (obj != null)
+                    {
                         this.countParsedFiles++;
                         this.processParsedElement(obj);
                     }
-                } catch (Throwable ex) {
+                }
+                catch (Throwable ex)
+                {
                     Logger.getLogger(IndexFileParser.class.getName()).log(
                             Level.SEVERE, null, ex);
                 }
@@ -96,10 +110,12 @@ public abstract class XmlObjectsListBase<T extends XmlObjectBase> extends XmlObj
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
         T[] allElements = this.getAll();
 
-        for (T elem : allElements) {
+        for (T elem : allElements)
+        {
             elem.saveToElement(parentElement);
         }
     }

@@ -16,34 +16,39 @@ import org.w3c.dom.Element;
  * Ordinary stores feature group's name
  * @author Anykey Skovorodkin
  */
-public class FeatureGroup extends XmlObjectBase {
-
+public class FeatureGroup extends XmlObjectBase
+{
     public static final String ROOT_NODE_NAME = "FeatureGroup";
     @XmlLocalizedFieldAnnotation(nodeName = NAME_PROP)
     private LocalizedValue name = new LocalizedValue();
 
-    public FeatureGroup() {
+    public FeatureGroup()
+    {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public String getName(int langId) {
+    public String getName(int langId)
+    {
         return this.name.getValue(langId);
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="XmlObjectBase">
     @Override
-    public String getRootNodeName() {
+    public String getRootNodeName()
+    {
         return ROOT_NODE_NAME;
     }
 
     @Override
-    protected boolean parseFromElementInternal(Element thisObjectElement) {
+    protected boolean parseFromElementInternal(Element thisObjectElement)
+    {
         return true;
     }
 
     @Override
-    protected void saveToElementInternal(Element parentElement) {
+    protected void saveToElementInternal(Element parentElement)
+    {
     }
     // </editor-fold>
 }
